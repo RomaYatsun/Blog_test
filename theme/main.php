@@ -37,5 +37,7 @@ for ($i=1;$i<=$total; $i++) {
   	echo  "<a href='index.php?page=$i'>$i</a>";
 }
 ?>
+</div>
+<div class = 'footer'></div>
 </body>
 </html>

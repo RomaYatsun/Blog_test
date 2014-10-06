@@ -37,4 +37,4 @@ if(!empty($_SESSION['username']) AND !empty($_SESSION['password']))
 		}
 include('theme/main.php');
 ?>
-</div>
+

@@ -9,6 +9,7 @@ require_once('functions.php');
 		<meta http-equiv="Content-Type" Content="text/html; Charset=utf-8">
 	</head>
 	<body>
+		<div class = 'wrapper'>
 <?php
 session_start();
 if(!empty($_SESSION['username']) AND !empty($_SESSION['password']))
@@ -35,3 +36,5 @@ if(!empty($_SESSION['username']) AND !empty($_SESSION['password']))
 			echo '<a href="register.php">SING IN</a><br><br>';
 		}
 include('theme/main.php');
+?>
+</div>

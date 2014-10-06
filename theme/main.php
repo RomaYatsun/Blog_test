@@ -38,6 +38,6 @@ for ($i=1;$i<=$total; $i++) {
 }
 ?>
 </div>
-<div class = 'footer'></div>
+<div class = 'footer'>ddd</div>
 </body>
 </html>

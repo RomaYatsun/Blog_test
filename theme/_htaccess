@@ -1,0 +1,3 @@
+ErrorDocument 403 http://test.loc/blog1/
+Order deny,allow
+Deny from all

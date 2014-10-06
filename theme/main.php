@@ -26,7 +26,7 @@ $start = $page * $num - $num;
 // Выбираем $num сообщений начиная с номера $start
 $result = $db->query("SELECT * FROM articles WHERE title != '' ORDER BY id_article DESC LIMIT $start, $num");
 // В цикле переносим результаты запроса в массив $postrow
-//$articles = array();
+
 
 ?>
 <?php

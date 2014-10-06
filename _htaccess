@@ -1,0 +1,9 @@
+AddDefaultCharset UTF-8
+<Files functions.php>
+order allow,deny
+deny from all
+</Files>
+<Files config.php>
+order allow,deny
+deny from all
+</Files>

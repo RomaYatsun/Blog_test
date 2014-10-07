@@ -12,7 +12,7 @@ try {
 catch(PDOException $e) {
   die("Error: " . $e->getMessage());
 }
-
+$blog_title = 'Blog_test';
 
 ///mysql_connect(DB_HOST, DB_LOGIN, DB_PASSWORD) or die('No connect');
 ///mysql_query('SET NAMES UTF-8');

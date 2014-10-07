@@ -1,37 +1,41 @@
 <?php
-require_once('config.php');
-require_once('functions.php');
-?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>BLOG_TEST</title>
-		<meta http-equiv="Content-Type" Content="text/html; Charset=utf-8">
-	</head>
-	<body>
+include_once('theme/header.php');
+include_once('theme/pagination.php');
+while ($row = $result->fetch()):?>
+<div class='article'>
+  <div class='article-title'>
+  	<h2>
+  	  <a href='article.php?id=<?=$row['id_article']?>'>
+  	  	<?=$row['title'];?>
+  	  </a>
+  	</h2>
+  </div>
+
+  <div class='article-content'>
+  	<p>
+  	  <?=articles_intro($row, $row['id_article'])?>
+  	</p>
+  	<div class='article-data'>
+  	  <p>
+  	  	<?=$row['author']?> <?=$row["date_time"]?>
+  	  	RAITING ARTICLE <?=$row['raiting']?>
+  	  	<a href='raiting.php?id=".$row['id_article']."&vote=up'>LIKE</a>
+  	  	<a href='raiting.php?id=".$row['id_article']."&vote=down'>DONT LIKE</a>
+  	  </p>
+  	</div>
+  	<hr>
+  </div>
+<?php endwhile ?>
 <?php
-session_start();
-if(!empty($_SESSION['username']) AND !empty($_SESSION['password']))
-	{
-		if(check_admin($db, $_SESSION['username'], $_SESSION['password']))
-			{
-				echo "<a href='admin/admin-panel.php'>ADMIN PANEL</a>";
-			}
-			else
-				{
-					echo "<a href='user-cabinet.php'>USER CABINET</a>";
-				}
-		echo "<br>";
-		echo "<a href='logout.php'>LOGOUT</a><br>";
-	}
-	else
-		{
-			echo "<form action='login.php' method='POST'>";
-			echo "LOGIN <input name='login' type='text'><br>";
-			echo "PASSWORD <input name='password' type='password'><br>";
-			echo "<input name='submit' type='submit' value='LOG IN'>";
-			echo "</form>";
-			echo "<br>";
-			echo '<a href="register.php">SING IN</a><br><br>';
-		}
-include('theme/main.php');
+echo "<ul>";
+for ( $i=1; $i<=$total; $i++) {
+  if ($posts<=$num) {
+  	return false;
+  }
+  echo "<li class='pagination'>";
+  echo "<a href='index.php?page=$i'>$i</a></li>";
+}
+echo '</ul>';
+include('theme/footer.php');
+?>
+

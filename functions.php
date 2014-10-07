@@ -40,6 +40,21 @@ function check($db, $login) {
   }
 }
 
+function check_email($db, $email) {
+  $result = $db->query("SELECT * FROM users WHERE email = '$email'");
+  if (!$result) {
+    die(mysql_error());
+  }
+  else {
+    $row = $result->fetch();
+    if ($row['email'] == $email) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+}
 function get_user($db, $login) {
   $sql = $db->prepare("SELECT * FROM users WHERE login = ?");
   $sql->execute(array($login));
@@ -77,7 +92,7 @@ function send_comment($db, $page_id, $username, $text_comment, $date_time) {
   $date_time = date('Y-m-d H:i:s');
   $sql = $db->prepare("INSERT INTO comments (page_id, username, text_comment, date_time)
   	VALUES (:page_id, :username, :text_comment, :date_time)");
-  $sql->execute(array(':page_id'=>$page_id, ':username'=>$username,':text_comment'=>$text_comment,
+  $sql->execute(array(':page_id'=>$page_id, ':username'=>htmlspecialchars($username),':text_comment'=>htmlspecialchars($text_comment),
   	':date_time'=>$date_time));
   if (!$sql)
   	die(mysql_error());
@@ -138,10 +153,10 @@ function check_admin($db, $login, $password) {
   if (!$sql) {
   	die(mysql_error());
   }
-  elseif ($row['is_admin'] == 1) {
+  elseif ($row['role'] == 1) {
   	return true;
   }
-  elseif ($row['is_admin'] == 0) {
+  elseif ($row['role'] == 0) {
   	return false;
   }
 }
@@ -166,10 +181,8 @@ function articles_all($db)
 	$result = $db->query("SELECT * FROM articles ORDER BY id_article DESC");
 	if (!$result)
 		die(mysql_error());
-	elseif ($result) {
-		$row = $result->fetchAll(PDO::FETCH_ASSOC);
-	
-		return $row;
+	else {
+			return $result;
 	}
 	
 }
@@ -187,72 +200,81 @@ function articles_get($db, $id_article)
 	else 
 		return false;
 }
-function articles_new($db, $title, $content)
-{
-	$title = trim($title);
-	$content = trim($content);
-	if ($title == '')
-		return false;
-	$sql =  $db->prepare("INSERT INTO articles (title, content)
-				VALUES (:title, :content)");
-	$sql->execute(array(':title'=>$title, ':content'=>$content));
-	if (!$sql)
-		die(mysql_error());
-	return true;
+
+
+/**
+ * Add new article
+ *
+ * @param object $db
+ *   Connect to DataBase
+ * @param sting $title
+ *   Title of new article
+ * @param string $content
+ *   Content of new article
+ * @param string $author
+ *   Authir of new article
+ * @return array $asdasd
+ *   ASDasd asd asd.
+ */
+function articles_new($db, $title, $content, $author, $date_time) {
+  $date_time = date('Y-m-d');
+  $title = trim($title);
+  $content = trim($content);
+  if ($title == '')
+    return false;
+  $sql =  $db->prepare("INSERT INTO articles (title, content, author, date_time)
+    VALUES (:title, :content, :author,:date_time)");
+  $sql->execute(array(':title'=>$title, ':content'=>$content, ':author'=>$author, ':date_time'=>$date_time));
+  if (!$sql)
+    die(mysql_error());
+  return true;
+}
+
+function articles_edit($db, $id_article, $title, $content) {
+  $title = trim($title);
+  $content = trim($content);
+  if (!$id_article)
+    return false;
+  $sql = $db->prepare("UPDATE articles SET title=:title, content = :content
+    WHERE id_article = :id_article");
+  $sql->execute(array(':title'=>$title, ':content'=>$content, ':id_article'=>$id_article));
+  if (!$sql)
+    die(mysql_error());
+  elseif ($sql) {
+    return true;
+  }
+  else
+    return false;
+}
+
+function change_raiting($db, $id_article, $number) {
+  $sql = $db->prepare("UPDATE articles SET raiting=? WHERE id_article=?");
+  $sql->execute(array($number, $id_article));
+  if ($sql) {
+    return true;
+  }
+  else
+    return false;
+}
+
+function articles_delete($db, $id_article) {
+  if (!$id_article)
+    return false;
+  $sql = $db->prepare("DELETE FROM articles WHERE id_article=?");
+  $sql->execute(array($id_article));
+  if (!$sql)
+    die(mysql_error());
+  return true;
+}
+
+function articles_intro($article, $id) {
+  $max_chars = 150;
+  $quote = $article['content'];
+  if (strlen($quote) <=$max_chars)
+    return $quote;
+  else
+    return substr($quote, 0, $max_chars) . "<br><a href='article.php?id=". $id ."'>Read more</a>";
 }
 
 
-
-
-function articles_edit($db, $id_article, $title, $content)
-{
-	$title = trim($title);
-	$content = trim($content);
-
-	if (!$id_article) return false;
-
-
-	$sql = $db->prepare("UPDATE articles SET title=:title, content = :content WHERE id_article = :id_article");
-	$sql->execute(array(':title'=>$title, ':content'=>$content, ':id_article'=>$id_article));
-	if (!$sql)
-		die(mysql_error());
-	elseif ($sql) {
-		return true;
-	}
-	else
-	return false;
-
-}
-
-function change_raiting($db, $id_article, $number)
-{
-	$sql = $db->prepare("UPDATE articles SET raiting=? WHERE id_article=?");
-	$sql->execute(array($number, $id_article));
-	if ($sql) {
-		return true;
-	}
-	else
-	return false;
-}
-
-
-function articles_delete($db, $id_article)
-{
-	if (!$id_article) return false;
-	$sql = $db->prepare("DELETE FROM articles WHERE id_article=?");
-	$sql->execute(array($id_article));
-	if (!$sql)
-		die(mysql_error());
-	return true;
-}
-
-function articles_intro($article)
-{
-	$max_chars = 300;
-	$quote = $article['content'];
-	if (strlen($quote) <=$max_chars)
-		return $quote;
-	else
-		return substr($quote, 0, $max_chars) . '...';
-}
 ?>

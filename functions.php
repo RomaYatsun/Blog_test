@@ -40,6 +40,21 @@ function check($db, $login) {
   }
 }
 
+function check_email($db, $email) {
+  $result = $db->query("SELECT * FROM users WHERE email = '$email'");
+  if (!$result) {
+    die(mysql_error());
+  }
+  else {
+    $row = $result->fetch();
+    if ($row['email'] == $email) {
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
+}
 function get_user($db, $login) {
   $sql = $db->prepare("SELECT * FROM users WHERE login = ?");
   $sql->execute(array($login));
@@ -138,10 +153,10 @@ function check_admin($db, $login, $password) {
   if (!$sql) {
   	die(mysql_error());
   }
-  elseif ($row['is_admin'] == 1) {
+  elseif ($row['role'] == 1) {
   	return true;
   }
-  elseif ($row['is_admin'] == 0) {
+  elseif ($row['role'] == 0) {
   	return false;
   }
 }

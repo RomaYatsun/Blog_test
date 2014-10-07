@@ -1,6 +1,8 @@
 <?php
 include_once('theme/header.php');
-
+if (empty($_SESSION['username'])) {
+}
+else {
   	if (isset($_FILES['file'])) {
   	  upload_file($db, $_FILES['file'], $_SESSION['username']);
   	}
@@ -25,7 +27,7 @@ include_once('theme/header.php');
   	  echo '<input type="submit" value="CHANGE"/>';
   	  echo '</form>';
   	}
-  
+  }
 
 
 ?>

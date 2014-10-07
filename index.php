@@ -1,16 +1,5 @@
 <?php
-require_once('config.php');
-require_once('functions.php');
-?>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>BLOG_TEST</title>
-		<meta http-equiv="Content-Type" Content="text/html; Charset=utf-8">
-	</head>
-	<body>
-		<div class = 'wrapper'>
-<?php
+include('theme/header.php');
 session_start();
 if(!empty($_SESSION['username']) AND !empty($_SESSION['password']))
 	{
@@ -22,19 +11,13 @@ if(!empty($_SESSION['username']) AND !empty($_SESSION['password']))
 				{
 					echo "<a href='user-cabinet.php'>USER CABINET</a>";
 				}
-		echo "<br>";
-		echo "<a href='logout.php'>LOGOUT</a><br>";
+		echo "<p><a href='logout.php'>LOGOUT</a></p>";
 	}
 	else
 		{
-			echo "<form action='login.php' method='POST'>";
-			echo "LOGIN <input name='login' type='text'><br>";
-			echo "PASSWORD <input name='password' type='password'><br>";
-			echo "<input name='submit' type='submit' value='LOG IN'>";
-			echo "</form>";
-			echo "<br>";
-			echo '<a href="register.php">SING IN</a><br><br>';
+			include('login-form.php');
 		}
 include('theme/main.php');
+include('theme/footer.php');
 ?>
 

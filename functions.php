@@ -188,13 +188,16 @@ function articles_get($db, $id_article)
 
 
 /**
- * ASsdasdas.
+ * Add new article
  *
  * @param object $db
- *   Asdasd as das dasd dsa dsa .
+ *   Connect to DataBase
  * @param sting $title
- *   ASdasdas das asd.
- *
+ *   Title of new article
+ * @param string $content
+ *   Content of new article
+ * @param string $author
+ *   Authir of new article
  * @return array $asdasd
  *   ASDasd asd asd.
  */
@@ -257,4 +260,6 @@ function articles_intro($article, $id) {
   else
     return substr($quote, 0, $max_chars) . "<br><a href='article.php?id=". $id ."'>Read more</a>";
 }
+
+
 ?>

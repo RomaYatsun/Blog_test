@@ -65,3 +65,4 @@ else {
   } 
 }
 ?>
+<a href="delete-profile.php?del=<?=$_SESSION['username']?>">Delete profile</a>

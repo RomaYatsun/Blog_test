@@ -17,10 +17,10 @@ while ($row = $result->fetch()):?>
   	</p>
   	<div class='article-data'>
   	  <p>
-  	  	<?=$row['author']?> <?=$row["date_time"]?>
-  	  	RAITING ARTICLE <?=$row['raiting']?>
-  	  	<a href='raiting.php?id=".$row['id_article']."&vote=up'>LIKE</a>
-  	  	<a href='raiting.php?id=".$row['id_article']."&vote=down'>DONT LIKE</a>
+  	  	<a href="view-profile.php?id=<?=$row['author']?>"><?=$row['author']?></a> <?=$row["date_time"]?><br>
+  	  	Raiting article <?=$row['raiting']?><br>
+  	  	<a href='raiting.php?id=<?=$row['id_article']?>&vote=up'>Like</a>
+  	  	<a href='raiting.php?id=<?=$row['id_article']?>&vote=down'>Dont like</a>
   	  </p>
   	</div>
   	<hr>

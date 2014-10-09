@@ -20,7 +20,8 @@ require_once('config.php');
         echo "<a href='index.php'>Home page</a>";
       }
       else {
-        echo "<a href='user-cabinet.php'>USER CABINET</a><br>";
+        echo "<a href='user-cabinet.php'>User cabinet</a><br>";
+        echo "<a href='view-profile.php'>View profile</a><br>";
         echo "<a href='index.php'>Home page</a>";
       }
       echo "<p><a href='logout.php'>LOGOUT</a></p>";

@@ -42,18 +42,26 @@ if (isset($_POST['submit'])) {
   }
 
   if (count($err) == 0) {
+    $date = date('Y-m-d');
     $email = $_POST['email'];
   	$login = $_POST['login'];
   	$password = md5(md5(trim($_POST['password'])));
     $avatar='img/default-avatar.gif';
-  	$sql = $db->prepare("INSERT INTO users (email, login, password, avatar, role)
-  	  VALUES (:email, :login, :password, :avatar, :role)");
-  	$result = $sql->execute(array(':email'=>$email, ':login'=>$login, ':password'=>$password, ':avatar'=>$avatar, ':role'=>'3'));
+  	$sql = $db->prepare("INSERT INTO users (email, login, password, avatar, date_time, role)
+  	  VALUES (:email, :login, :password, :avatar, :date_time, :role)");
+  	$result = $sql->execute(array(':email'=>$email, ':login'=>$login, ':password'=>$password, ':avatar'=>$avatar, ':date_time'=>$date, ':role'=>'3'));
   	if (!$result)
   		die(mysql_error());
     session_start();
     $_SESSION['username'] = $_POST['login'];
     $_SESSION['password'] = md5(md5($_POST['password']));
+    $_SESSION['last_login'] = date('Y-m-d H:i:s');
+    $login = $_SESSION['username'];
+    $last_login = $_SESSION['last_login'];
+    $sql = $db->query("UPDATE users SET last_login = '". $last_login . "' WHERE login= '". $login . "'");
+    if (!$sql) {
+      die(mysql_error());
+    }
   	header("Location: index.php");
   	exit();
   }

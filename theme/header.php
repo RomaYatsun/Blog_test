@@ -18,11 +18,13 @@ require_once('config.php');
   {
     if(check_admin($db, $_SESSION['username'], $_SESSION['password']))
       {
-        echo "<a href='admin/admin-panel.php'>ADMIN PANEL</a>";
+        echo "<a href='admin/admin-panel.php'>Admin panel</a><br>";
+        echo "<a href='index.php'>Home page</a>";
       }
       else
         {
-          echo "<a href='user-cabinet.php'>USER CABINET</a>";
+          echo "<a href='user-cabinet.php'>USER CABINET</a><br>";
+          echo "<a href='index.php'>Home page</a>";
         }
     echo "<p><a href='logout.php'>LOGOUT</a></p>";
   }

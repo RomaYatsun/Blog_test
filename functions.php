@@ -137,7 +137,7 @@ function upload_file($db, $file, $login) {
   elseif (!copy($file['tmp_name'], "img_big/".$file['name']))
   	echo 'Ошибка загрузки файла';
   elseif (copy($file['tmp_name'], "img_big/".$file['name'])) {
-  	img_resize($file['tmp_name'], "img_small/".$file['name'], 100, 60);
+  	img_resize($file['tmp_name'], "img_small/".$file['name'], 150, 150);
   	$sql = $db->prepare("UPDATE users SET avatar=:avatar WHERE login = :login");
   	$sql->execute(array(':avatar'=>"img_small/".$file['name'], ':login'=>$login));
   	header("Location:{$_SERVER['PHP_SELF']}");
@@ -276,5 +276,18 @@ function articles_intro($article, $id) {
     return substr($quote, 0, $max_chars) . "<br><a href='article.php?id=". $id ."'>Read more</a>";
 }
 
-
+function profile_edit($db, $first_name, $last_name, $email, $password, $login) {
+  $password = md5(md5($password));
+  $sql = $db->prepare("UPDATE users SET first_name=:first_name, last_name = :last_name,
+    email = :email, password = :password WHERE login = :login");
+  $sql->execute(array(':first_name'=>$first_name, ':last_name'=>$last_name, 
+    ':email'=>$email, ':password'=>$password, ':login'=>$login));
+  if (!$sql)
+    die(mysql_error());
+  elseif ($sql) {
+    return true;
+  }
+  else
+    return false;
+}
 ?>

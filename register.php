@@ -45,9 +45,10 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
   	$login = $_POST['login'];
   	$password = md5(md5(trim($_POST['password'])));
-  	$sql = $db->prepare("INSERT INTO users (email, login, password, role)
-  	  VALUES (:email, :login, :password, :role)");
-  	$result = $sql->execute(array(':email'=>$email, ':login'=>$login, ':password'=>$password, ':role'=>'3'));
+    $avatar='img/default-avatar.gif';
+  	$sql = $db->prepare("INSERT INTO users (email, login, password, avatar, role)
+  	  VALUES (:email, :login, :password, :avatar, :role)");
+  	$result = $sql->execute(array(':email'=>$email, ':login'=>$login, ':password'=>$password, ':avatar'=>$avatar, ':role'=>'3'));
   	if (!$result)
   		die(mysql_error());
     session_start();

@@ -31,4 +31,9 @@ else
   <li>Account was created: <?=$user['date_time']?></li>
   <li>Last login: <?=$user['last_login']?></li>
 </ul>
-<?php }?>
+<?php }
+if (check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
+  echo "string";
+}
+
+?>

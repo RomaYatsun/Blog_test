@@ -1,6 +1,7 @@
 <?php
 require_once('functions.php');
 require_once('config.php');
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,14 +15,19 @@ require_once('config.php');
     <div class='login'>
     <?php
     session_start();
+    
     if(!empty($_SESSION['username']) AND !empty($_SESSION['password'])) {
       if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
         echo "<a href='admin/admin-panel.php'>Admin panel</a><br>";
         echo "<a href='index.php'>Home page</a>";
       }
       else {
+        $user = get_user($db, $_SESSION['username']);
         echo "<a href='user-cabinet.php'>User cabinet</a><br>";
         echo "<a href='view-profile.php'>View profile</a><br>";
+        if ($user['role']==2) {
+          echo "<a href='admin/new.php'>Add new article</a><br>";
+        }
         echo "<a href='index.php'>Home page</a>";
       }
       echo "<p><a href='logout.php'>LOGOUT</a></p>";

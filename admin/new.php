@@ -2,10 +2,11 @@
 require_once('../config.php');
 require_once('../functions.php');
 session_start();
-if (check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
+$user = get_user($db, $_SESSION['username']);
+if ($user['role'] == '1' or $user['role'] == '2') {
   if (isset($_POST['title']) AND isset($_POST['content'])) {
-  	if (articles_new($db, $_POST['title'], nl2br($_POST['content']), $_SESSION['username'])) {
-  	  header("Location:admin-panel.php");
+  	if (articles_new($db, $_POST['title'], nl2br($_POST['content']), $user['login'])) {
+  	  header("Location:../index.php");
   	  die();
   	}
   	$title = $_POST['title'];

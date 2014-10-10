@@ -2,14 +2,9 @@
 include_once('theme/header.php');
 if (empty($_SESSION['username'])) {
   header("Location:index.php");
+
 }
 else {
-  $sql = $db->prepare("SELECT * FROM users WHERE login=?");
-  $sql->execute(array($_SESSION['username']));
-  $row = $sql->fetch(PDO::FETCH_ASSOC);
-  if (!$sql) {
-    die(mysql_error());
-  }
   if (isset($_POST['change'])) {
     $err = array();
     filter_var('example@mail.ru', FILTER_VALIDATE_EMAIL);
@@ -17,13 +12,13 @@ else {
       $err[] = "E-mail is not correct";
     }
     if ($_POST['password'] == '') {
-      $_POST['password'] = $row['password'];
+      $_POST['password'] = $user['password'];
     }
     elseif ($_POST['password'] != '') {
       $_POST['password'] = md5(md5($_POST['password']));
     }
-    if ($_POST['email'] == $row['email']) {
-      $_POST['email'] = $row['email'];
+    if ($_POST['email'] == $user['email']) {
+      $_POST['email'] = $user['email'];
     }
     elseif (!check_email($db, $_POST['email']))
       $err[] = 'This email already exists';
@@ -49,14 +44,14 @@ else {
   }
   else { ?>
   <form method='POST'>
-    First name <input type='text' name='name' value = "<?=$row['first_name'];?>"/><br>
-    Last name<input type='text' name='lastname' value = "<?=$row['last_name'];?>" /><br>
-    E-mail <input type='text' name='email' value = "<?=$row['email'];?>" /><br>
+    First name <input type='text' name='name' value = "<?=$user['first_name'];?>"/><br>
+    Last name<input type='text' name='lastname' value = "<?=$user['last_name'];?>" /><br>
+    E-mail <input type='text' name='email' value = "<?=$user['email'];?>" /><br>
     Password <input type='password' name='password' /><br>
     <input type='submit' name='change' value='Change'/><br>
   </form>
   Your avatar: 
-  <img src='<?=$row['avatar']?>'/><br>
+  <img src='<?=$user['avatar']?>'/><br>
   <form method="post" enctype="multipart/form-data">
     <input type="file" name="file" />
     <input type="submit" value="Change"/>

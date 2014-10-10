@@ -1,7 +1,7 @@
 <?php
 
 
-$num = 1;
+$num = 10;
 if (isset($_GET['page'])) {
 $page = $_GET['page'];
 }

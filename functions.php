@@ -61,7 +61,7 @@ function get_user($db, $login) {
   if (!$sql)
   	die(mysql_error());
   elseif ($sql) {
-  	$row = $sql->fetch();
+  	$row = $sql->fetch(PDO::FETCH_ASSOC);
   	return $row;
   }
   else

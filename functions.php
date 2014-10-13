@@ -64,8 +64,6 @@ function get_user($db, $login) {
   	$row = $sql->fetch(PDO::FETCH_ASSOC);
   	return $row;
   }
-  else
-  	echo "string";
 }
 
 function delete_comment($db, $id) {
@@ -164,7 +162,7 @@ function check_admin($db, $login, $password) {
 function check_login($db, $login, $password) {
   $sql = $db->prepare("SELECT * FROM users WHERE login = ?");
   $sql->execute(array($login));
-  $row = $sql->fetch();
+  $row = $sql->fetch(PDO::FETCH_ASSOC);
   if (!$sql) {
   	die(mysql_error());
   }

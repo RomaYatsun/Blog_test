@@ -16,7 +16,7 @@ require_once('config.php');
     <?php
     session_start();
     
-    if(!empty($_SESSION['username']) AND !empty($_SESSION['password'])) {
+   if(!empty($_SESSION['username']) AND !empty($_SESSION['password'])) {
       if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
         echo "<a href='admin/admin-panel.php'>Admin panel</a><br>";
         echo "<a href='index.php'>Home page</a>";
@@ -27,6 +27,7 @@ require_once('config.php');
         echo "<a href='view-profile.php'>View profile</a><br>";
         if ($user['role']==2) {
           echo "<a href='admin/new.php'>Add new article</a><br>";
+          echo "<a href='user-articles.php'>My articles</a><br>";
         }
         echo "<a href='index.php'>Home page</a>";
       }

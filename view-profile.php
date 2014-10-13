@@ -31,5 +31,34 @@ else
   <li>Last login: <?=$user['last_login']?></li>
 </ul>
 <?php }
+if (isset($_POST['change'])) {
+      var_dump($_POST);
+      echo "<br>";
+      if ($_POST['delete'] == 'on') {
+       // delete_user
+      }
+      elseif ($_POST['role']) {
+        //change_role_user
+      }
+    }
+if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
+  if (check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
 
+?>
+<form method='POST' style="width:300px;">
+  <fieldset>
+    <legend><span style="font-size:12px">change user profile</span></legend>
+   Role of user:
+   <p><select size="3" name="role">
+    <option value="3">User</option>
+    <option value="2">Moderator</option>
+    <option value="0">Block</option>
+   </select></p>
+   Delete user:
+  <input type='checkbox' name='delete' /><br>
+  <input type='submit' name = 'change' value='Change' />
+  </fieldset>
+</form>
+<?php
+}}
 ?>

@@ -288,4 +288,21 @@ function profile_edit($db, $first_name, $last_name, $email, $password, $login) {
   else
     return false;
 }
+
+function delete_user($db, $id) {
+ $sql = $db->prepare("DELETE * FROM users WHERE login = ?");
+  $sql->execute(array($id));
+  if (!$sql)
+    die(mysql_error());
+  else
+    return true; 
+}
+function change_role($db, $role, $id) {
+  $sql = $db->prepare("UPDATE users SET role = ? WHERE login = ?");
+  $sql->execute(array($role, $id));
+  if (!$sql)
+    die(mysql_error());
+  else
+    return true; 
+}
 ?>

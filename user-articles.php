@@ -12,9 +12,10 @@ while ($row = $result->fetch()):?>
 <p>
           <a href="editor.php?id=<?=$row['id_article']; ?>">
           <?=$row['title']?>
-        </a>
-        >>>>>>>> Raiting: <?=$row['raiting'];?>
-        <a href="editor.php?id=<?=$row['id_article']?>">Change</a>
+        </a><br>
+        <a href="editor.php?id=<?=$row['id_article']?>">Change</a><br>
+        Raiting: <?=$row['raiting'];?>
+        
       </p>
 
 <?php endwhile ?>

@@ -31,16 +31,25 @@ else
   <li>Last login: <?=$user['last_login']?></li>
 </ul>
 <?php }
+if (isset($_POST)) {
+
 if (isset($_POST['change'])) {
-      var_dump($_POST);
-      echo "<br>";
-      if ($_POST['delete'] == 'on') {
-       // delete_user
-      }
-      elseif ($_POST['role']) {
-        //change_role_user
+      if (isset($_POST['role'])) {
+        if(change_role($db, $_POST['role'], $_GET['id'])) {
+          header("Location:admin/admin-panel.php");
+        }
+        else
+          echo "ERROR";
       }
     }
+    elseif (isset($_POST['delete'])) {
+       if (delete_user($db, $_GET['id'])) {
+      header("Location:admin/admin-panel.php");
+    }
+    else
+   echo "ERROR";
+      }
+}      
 if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
   if (check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
 
@@ -54,9 +63,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
     <option value="2">Moderator</option>
     <option value="0">Block</option>
    </select></p>
-   Delete user:
-  <input type='checkbox' name='delete' /><br>
   <input type='submit' name = 'change' value='Change' />
+    <input type='submit' name='delete' value='Delete user'/>
   </fieldset>
 </form>
 <?php

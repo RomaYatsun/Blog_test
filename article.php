@@ -3,14 +3,15 @@ require_once('functions.php');
 require_once('config.php');
 session_start();
 if (empty($_SESSION['username'])) {
-  $author = 'Guest';
+  $username = 'Guest';
 }
 else
-	$author = $_SESSION['username'];
+	$username = $_SESSION['username'];
 $comments = get_comment($db, $_GET['id']);
 if ($art = articles_get($db, $_GET['id'])) {
   $title = $art["title"];
   $content = $art["content"];
+  $author = $art['author'];
 }
 else
   echo mysql_error();

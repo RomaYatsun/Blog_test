@@ -4,11 +4,9 @@ include_once('theme/pagination.php');
 while ($row = $result->fetch()):?>
 <div class='article'>
   <div class='article-title'>
-  	<h2>
   	  <a href='article.php?id=<?=$row['id_article']?>'>
-  	  	<?=$row['title'];?>
+  	  	<h2><?=$row['title'];?></h2>
   	  </a>
-  	</h2>
   </div>
 
   <div class='article-content'>

@@ -216,8 +216,10 @@ function articles_get($db, $id_article)
  */
 function articles_new($db, $title, $content, $author, $date_time) {
   $date_time = date('Y-m-d');
-  $title = trim($title);
-  $content = trim($content);
+  $ALLOWABLE_TAGS = '<a><b><br><em><i><img><ul><li><ol><p><small><<strong><table><tbody><td><tfoot><th><thead>
+                    <tr><tt><u>';
+  $title = strip_tags($title, $ALLOWABLE_TAGS);
+  $content = strip_tags($content, $ALLOWABLE_TAGS);
   if ($title == '')
     return false;
   $sql =  $db->prepare("INSERT INTO articles (title, content, author, date_time)
@@ -290,19 +292,36 @@ function profile_edit($db, $first_name, $last_name, $email, $password, $login) {
 }
 
 function delete_user($db, $id) {
- $sql = $db->prepare("DELETE * FROM users WHERE login = ?");
+ $sql = $db->prepare("DELETE  FROM users WHERE login = ?");
+ if ($id == 'admin') {
+   return false;
+ }
+ else
   $sql->execute(array($id));
-  if (!$sql)
-    die(mysql_error());
-  else
-    return true; 
+if (!$sql)
+  die(mysql_error());
+else
+ return true; 
 }
+
 function change_role($db, $role, $id) {
   $sql = $db->prepare("UPDATE users SET role = ? WHERE login = ?");
+  if ($id == 'admin') {
+   return false;
+ }
+ else
   $sql->execute(array($role, $id));
   if (!$sql)
     die(mysql_error());
   else
     return true; 
+}
+function print_form_login() {
+   echo "<form action='login.php' method='POST'>";
+      echo "<span>Login</span> <input name='login' type='text'>";
+      echo "<span>Password</span> <input name='password' type='password'>";
+      echo "<input name='submit' type='submit' value='Log in'>";
+      echo "</form>";
+      echo "<a href='register.php'>Sing in</a>";
 }
 ?>

@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
   $err = array();
   filter_var('example@mail.ru', FILTER_VALIDATE_EMAIL);
 
-  if(!preg_match("/^[a-zA-Z0-9]+$/", $_POST['login']) || !preg_match("/^[a-zA-Z0-9]+$/",
+  if(preg_match("/[<>\/]/", $_POST['login']) || preg_match("/[<>\/]/",
   	  $_POST['password'])) {
     $err[] = 'Login and password must only be from the english alphabet and numbers';
   }

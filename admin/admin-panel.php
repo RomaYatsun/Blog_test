@@ -26,7 +26,7 @@ session_start();
         <?php
         foreach ($articles as $article): ?>
         <p>
-          <a href="./editor.php?id=<?=$article['id_article']; ?>">
+<a href="./editor.php?id=<?=$article['id_article']; ?>">
           <?=$article['title']?>
         </a>
         >>>>>>>> Raiting: <?=$article['raiting'];?>

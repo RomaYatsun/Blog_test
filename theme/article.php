@@ -8,8 +8,9 @@
   <a href="./index.php">HOME PAGE</a>
   <h1><?=$title ;?></h1>
   <p><?=$content ;?></p>
+  <em>Author - <?=$author?></em><br><br><br>
   <form action='comments.php' method='POST'>
-  	USERNAME:<br><input type='text' name='username' value="<?=$author?>" required><br>
+  	USERNAME:<br><input type='text' name='username' value="<?=$username?>" required><br>
   	COMMENT: <br><textarea type='text' name='comment' required></textarea><br>
   	<input type='hidden' name='page_id' value="<?=$_GET['id']?>">
   	<input type='submit' name='send' value='SEND'>

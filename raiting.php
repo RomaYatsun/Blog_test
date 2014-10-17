@@ -16,7 +16,7 @@ if (isset($_GET['vote'])) {
 			header("Location: {$_SERVER['HTTP_REFERER']}");
 		}
 		else
-			echo 'YOU HAVE ALREADY VOTED';
+			echo 'You have already voted';
 	}
 	elseif ($_GET['vote'] == 'down') {
 		if (check_raiting($db, $row['user_id'], $_GET['id'])) {
@@ -24,7 +24,7 @@ if (isset($_GET['vote'])) {
 			header("Location: {$_SERVER['HTTP_REFERER']}");
 		}
 		else
-			echo 'YOU HAVE ALREADY VOTED';
+			echo 'You have already voted';
 	}
 }
 	else
@@ -32,7 +32,7 @@ if (isset($_GET['vote'])) {
 }
 else
 {
-	echo "TO VOTE YOU MUST BE REGISTERED<br>";
+	echo "To vote you must be registered<br>";
 echo "<a href=index.php>LOGIN</a><br>";
 echo "<a href=register.php>SING UP</a><br>";}
 

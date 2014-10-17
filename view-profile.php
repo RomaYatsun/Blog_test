@@ -42,14 +42,13 @@ if (isset($_POST['change'])) {
           echo "ERROR";
       }
     }
-    //elseif (isset($_POST['delete'])) {
-      //echo "<a href='delete-profile.php?del='". $_SESSION['username'] . "'>Delete profile</a>";
-       //if (delete_user($db, $_GET['id'])) {
-//      header("Location:admin/admin-panel.php");
-    //}
-    //else
-   //echo "ERROR";
-      //}
+    elseif (isset($_POST['delete'])) {
+       if (delete_user($db, $_GET['id'])) {
+      header("Location:admin/admin-panel.php");
+    }
+    else
+   echo "ERROR";
+     }
 }      
 if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
   if (check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
@@ -65,7 +64,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
     <option value="0">Block</option>
    </select></p>
   <input type='submit' name = 'change' value='Change' />
-   <p><a href="delete-profile.php?del=<?=$_GET['id']?>">Delete profile</a></p>
+  <input type='submit' name = 'delete' value='Delete profile' />
   </fieldset>
 </form>
 <?php

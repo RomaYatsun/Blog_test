@@ -29,7 +29,7 @@ session_start();
 <a href="./editor.php?id=<?=$article['id_article']; ?>">
           <?=$article['title']?>
         </a>
-        >>>>>>>> Raiting: <?=$article['raiting'];?>
+        >>>>>>>> Raiting like: <?=$article['raiting_up'];?>Raiting don't like: <?=$article['raiting_down'];?>
         <a href="./editor.php?id=<?=$article['id_article']?>">Change</a>
       </p>
       <?php endforeach ?>

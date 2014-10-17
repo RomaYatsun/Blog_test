@@ -16,7 +16,7 @@ while ($row = $result->fetch()):?>
   	<div class='article-data'>
   	  <p>
   	  	<a href="view-profile.php?id=<?=$row['author']?>"><?=$row['author']?></a> <?=$row["date_time"]?><br>
-  	  	Raiting article <?=$row['raiting']?><br>
+  	  	Raiting article <?=$row['raiting_up']+$row['raiting_down']?><br>
   	  	<a href='raiting.php?id=<?=$row['id_article']?>&vote=up'>Like</a>
   	  	<a href='raiting.php?id=<?=$row['id_article']?>&vote=down'>Dont like</a>
   	  </p>

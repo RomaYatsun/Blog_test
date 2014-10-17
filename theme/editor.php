@@ -12,11 +12,14 @@
   	<input type="text" name="title" value="<?=$title?>"/><br><br>
   	Content:<br>
   	<textarea type="text" name="content"><?=$content?></textarea><br><br>
-  	RAITING:<br>
-  	<input type='text' name='raiting' value="<?=$articles['raiting'];?>"><br>
+  	Raiting like:<br>
+  	<input type='text' name='raiting_up' value="<?=$articles['raiting_up'];?>"><br>
+    Raiting don't like:<br>
+    <input type='text' name='raiting_down' value="<?=$articles['raiting_down'];?>"><br>
   	<input type="hidden" name = "id" value="<?=$id?>" />
   	<input type="submit" name = "upd" value="CHANGE" />
   	<input type="submit" name = "del" value="DELETE" />
+    <input type="submit" name = "f" value="DELETE" />
   </form>
 </body>
 </html>

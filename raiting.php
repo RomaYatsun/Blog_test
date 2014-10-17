@@ -12,7 +12,7 @@ if (!empty($_SESSION['username'])) {
 if (isset($_GET['vote'])) {
 	if ($_GET['vote'] == 'up') {
 		if (check_raiting($db, $row['user_id'], $_GET['id'])) {
-			vote($db, 1, $_GET['id']);
+			vote_up($db, 1, $_GET['id']);
 			header("Location: {$_SERVER['HTTP_REFERER']}");
 		}
 		else
@@ -20,7 +20,7 @@ if (isset($_GET['vote'])) {
 	}
 	elseif ($_GET['vote'] == 'down') {
 		if (check_raiting($db, $row['user_id'], $_GET['id'])) {
-			vote($db, -1, $_GET['id']);
+			vote_down($db, -1, $_GET['id']);
 			header("Location: {$_SERVER['HTTP_REFERER']}");
 		}
 		else

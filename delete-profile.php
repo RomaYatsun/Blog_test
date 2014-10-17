@@ -1,14 +1,14 @@
 <?php
 include_once('config.php');
 session_start();
-if (isset($_GET['del'])) {
+if (isset($_GET['del']) and $_SESSION['username'] != 'admin') {
   if ($_GET['del'] != $_SESSION['username']) {
     header("Location:index.php");
   }
   elseif ($_GET['del'] == 'admin') {
      header("Location:index.php");
   }
-  elseif (isset($_POST['yes'])) {
+  elseif (isset($_POST['yes']) ) {
    $sql = $db->prepare("DELETE FROM users WHERE login = :login");
         $sql->execute(array(':login' => $_SESSION['username']));
         unset($_SESSION['username']);

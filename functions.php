@@ -1,6 +1,6 @@
 <?php
-function vote($db, $number, $id) {
-  $sql = $db->prepare("UPDATE articles SET raiting = raiting + :numbers 
+function vote_up($db, $number, $id) {
+  $sql = $db->prepare("UPDATE articles SET raiting_up = raiting_up + :numbers 
   	WHERE id_article = :id_article");
   $sql->execute(array(':numbers'=>$number, ':id_article'=>$id));
   if (!$sql)
@@ -10,6 +10,17 @@ function vote($db, $number, $id) {
   }
 }
 
+function vote_down($db, $number, $id) {
+  $sql = $db->prepare("UPDATE articles SET raiting_down = raiting_down + :numbers 
+    WHERE id_article = :id_article");
+  $sql->execute(array(':numbers'=>$number, ':id_article'=>$id));
+  if (!$sql)
+    die(mysql_error());
+  else {
+    return true;
+  }
+}
+/* ДОРОБИТИ */
 function check_raiting($db, $id_user, $id_article){
   $sql = $db->prepare("SELECT * FROM raiting_art WHERE id_user=:id_user and id_article=:id_article");
   $sql->execute(array(':id_user'=>$id_user, ':id_article'=>$id_article));
@@ -247,9 +258,9 @@ function articles_edit($db, $id_article, $title, $content) {
     return false;
 }
 
-function change_raiting($db, $id_article, $number) {
-  $sql = $db->prepare("UPDATE articles SET raiting=? WHERE id_article=?");
-  $sql->execute(array($number, $id_article));
+function change_raiting($db, $raiting, $id_article, $number) {
+  $sql = $db->prepare("UPDATE articles SET $raiting = $number WHERE id_article=$id_article");
+ $sql->execute();
   if ($sql) {
     return true;
   }

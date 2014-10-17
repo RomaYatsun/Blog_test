@@ -6,11 +6,12 @@ if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
   if (isset($_GET['id'])) {
   	$articles = articles_get($db, $_GET['id']);
   	if (isset($_POST['upd'])) {
+
   	  if (articles_edit($db, $_POST['id'], $_POST['title'], nl2br($_POST['content']))) {
-  	  	if (change_raiting($db, $_POST['id'], $_POST['raiting'])) {
-  	  	  header('Location: admin-panel.php');
-  	  	  die();
-  	  	}
+        change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
+        change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
+       header('Location: admin-panel.php');
+        
   	  }
   	  else {
   	  	$id = $_POST['id'];

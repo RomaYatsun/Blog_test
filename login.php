@@ -4,7 +4,7 @@ require_once('config.php');
 require_once('functions.php'); 
 if (isset($_POST['login']) and isset($_POST['password'])) {
   $user = get_user($db, $_POST['login']);
-  if ($user['role'] == '2') {
+  if ($user['role'] == '0') {
       echo "You are BLOCKED";
     }
     else{

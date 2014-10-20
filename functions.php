@@ -21,15 +21,39 @@ function vote_down($db, $number, $id) {
   }
 }
 /* ДОРОБИТИ */
-function check_raiting($db, $id_user, $id_article){
+function check_raiting($db, $string, $id_user, $id_article){
   $sql = $db->prepare("SELECT * FROM raiting_art WHERE id_user=:id_user and id_article=:id_article");
   $sql->execute(array(':id_user'=>$id_user, ':id_article'=>$id_article));
   $row = $sql->fetch();
   if ($row['id_article'] == $id_article) {
-  	return false;
+    if ($string == 'vote_up') {
+      if ($row['vote_up'] == 1) {
+        return false;
+      }
+      elseif ($row['vote_up'] == 0) {
+       $sql = $db->prepare ("UPDATE raiting_art SET vote_up = 1
+           WHERE $id_user");
+       $sql->execute();
+       return true;
+      }
+    }
+    elseif ($string == 'vote_down')
+        {
+      if ($row['vote_down'] == 1) {
+        return false;
+      }
+      elseif ($row['vote_down'] == 0) {
+        $sql = $db->prepare ("UPDATE raiting_art SET vote_down = 1
+           WHERE $id_user");
+       $sql->execute();
+       return true;
+      }
+    }
+    
   }
+  
   else {
-    $sql = $db->prepare("INSERT INTO raiting_art (id_user, id_article) VALUES (:id_user, :id_article)");
+    $sql = $db->prepare("INSERT INTO raiting_art (id_user, $string, id_article) VALUES (:id_user, 1, :id_article)");
   	$sql->execute(array(':id_user'=>$id_user, ':id_article'=>$id_article));
 	return true;
   }

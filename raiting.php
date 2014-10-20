@@ -11,7 +11,7 @@ if (!empty($_SESSION['username'])) {
 	$row = $sql->fetch();
 if (isset($_GET['vote'])) {
 	if ($_GET['vote'] == 'up') {
-		if (check_raiting($db, $row['user_id'], $_GET['id'])) {
+		if (check_raiting($db, 'vote_up', $row['user_id'], $_GET['id'])) {
 			vote_up($db, 1, $_GET['id']);
 			header("Location: {$_SERVER['HTTP_REFERER']}");
 		}
@@ -19,7 +19,7 @@ if (isset($_GET['vote'])) {
 			echo 'You have already voted';
 	}
 	elseif ($_GET['vote'] == 'down') {
-		if (check_raiting($db, $row['user_id'], $_GET['id'])) {
+		if (check_raiting($db, 'vote_down', $row['user_id'], $_GET['id'])) {
 			vote_down($db, -1, $_GET['id']);
 			header("Location: {$_SERVER['HTTP_REFERER']}");
 		}

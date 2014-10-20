@@ -1,6 +1,24 @@
 <?php
 require_once('functions.php');
 require_once('config.php');
+if (isset($_SESSION['lang_site']))
+  {
+    $lang = $_SESSION['lang_site'];
+
+  }
+  else
+    {
+      $lang='ua';
+    }
+if (isset($_GET['lang']))
+  {
+    $lang=$_GET['lang'];
+    $_SESSION['lang_site'] = $lang;
+     echo $_SESSION['lang_site'];
+  }
+
+  echo "<a href='". $_SERVER['PHP_SELF']. "?lang=ua'><img src='img/Ukraine.gif' /></a> | 
+  <a href='" . $_SERVER['PHP_SELF'] . "?lang=en'><img src='img/usa.gif' /></a><br>";
 
 ?>
 <!DOCTYPE html>

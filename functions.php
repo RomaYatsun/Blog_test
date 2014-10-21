@@ -235,6 +235,37 @@ function articles_get($db, $id_article)
 }
 
 
+
+function articles_edit_ua($db, $id_article, $title, $content)
+{
+  $title = trim($title);
+  $content = trim($content);
+
+  if (!$id_article) return false;
+
+
+  $sql = "UPDATE articles SET title_ua=:title_ua, content_ua = :content_ua WHERE id_article = :id_article";
+  $sql->execute(array(':title_ua'=>$title, ':content_ua'=>$content, ':id_article'=>$id_article));
+  if (!$sql)
+    die(mysql_error());
+  return true;
+
+}
+function articles_edit_en($db, $id_article, $title, $content)
+{
+
+
+  if (!$id_article) return false;
+
+
+  $sql = $db->prepare("UPDATE articles SET title_en=:title_en, content_en = :content_en 
+    WHERE id_article = :id_article");
+  $sql->execute(array(':title_en'=>$title, ':content_en'=>$content, ':id_article'=>$id_article));
+  if (!$sql)
+    die(mysql_error());
+  return true;
+
+}
 /**
  * Add new article
  *
@@ -248,8 +279,24 @@ function articles_get($db, $id_article)
  *   Authir of new article
  * @return array $asdasd
  *   ASDasd asd asd.
+*function articles_new($db, $title, $content, $author, $date_time) {
+*$date_time = date('Y-m-d');
+*$ALLOWABLE_TAGS = '<a><b><br><em><i><img><ul><li><ol><p><small><<strong><table><tbody><td><tfoot><th><thead>
+*<tr><tt><u>';
+*$title = strip_tags($title, $ALLOWABLE_TAGS);
+*$content = strip_tags($content, $ALLOWABLE_TAGS);
+*if ($title == '')
+*return false;
+*$sql = $db->prepare("INSERT INTO articles (title, content, author, date_time)
+*VALUES (:title, :content, :author,:date_time)");
+*$sql->execute(array(':title'=>$title, ':content'=>$content, ':author'=>$author, ':date_time'=>$date_time));
+*if (!$sql)
+*die(mysql_error());
+*return true;
+*}
+*
  */
-function articles_new($db, $title, $content, $author, $date_time) {
+function articles_new_ua($db, $title, $content, $author, $date_time) {
   $date_time = date('Y-m-d');
   $ALLOWABLE_TAGS = '<a><b><br><em><i><img><ul><li><ol><p><small><<strong><table><tbody><td><tfoot><th><thead>
                     <tr><tt><u>';
@@ -257,15 +304,29 @@ function articles_new($db, $title, $content, $author, $date_time) {
   $content = strip_tags($content, $ALLOWABLE_TAGS);
   if ($title == '')
     return false;
-  $sql =  $db->prepare("INSERT INTO articles (title, content, author, date_time)
+  $sql =  $db->prepare("INSERT INTO articles (title_ua, content_ua, author, date_time)
     VALUES (:title, :content, :author,:date_time)");
   $sql->execute(array(':title'=>$title, ':content'=>$content, ':author'=>$author, ':date_time'=>$date_time));
   if (!$sql)
     die(mysql_error());
   return true;
 }
-
-function articles_edit($db, $id_article, $title, $content) {
+function articles_new_en($db, $title, $content, $author, $date_time) {
+  $date_time = date('Y-m-d');
+  $ALLOWABLE_TAGS = '<a><b><br><em><i><img><ul><li><ol><p><small><<strong><table><tbody><td><tfoot><th><thead>
+                    <tr><tt><u>';
+  $title = strip_tags($title, $ALLOWABLE_TAGS);
+  $content = strip_tags($content, $ALLOWABLE_TAGS);
+  if ($title == '')
+    return false;
+  $sql =  $db->prepare("INSERT INTO articles (title_en, content_en, author, date_time)
+    VALUES (:title, :content, :author,:date_time)");
+  $sql->execute(array(':title'=>$title, ':content'=>$content, ':author'=>$author, ':date_time'=>$date_time));
+  if (!$sql)
+    die(mysql_error());
+  return true;
+}
+/*function articles_edit($db, $id_article, $title, $content) {
   $title = trim($title);
   $content = trim($content);
   if (!$id_article)
@@ -280,7 +341,8 @@ function articles_edit($db, $id_article, $title, $content) {
   }
   else
     return false;
-}
+}*/
+
 
 function change_raiting($db, $raiting, $id_article, $number) {
   $sql = $db->prepare("UPDATE articles SET $raiting = $number WHERE id_article=$id_article");
@@ -302,9 +364,9 @@ function articles_delete($db, $id_article) {
   return true;
 }
 
-function articles_intro($article, $id) {
+function articles_intro($article, $id, $lang) {
   $max_chars = 150;
-  $quote = $article['content'];
+  $quote = $article["content_$lang"];
   if (strlen($quote) <=$max_chars)
     return $quote;
   else

@@ -4,18 +4,33 @@ require_once('../functions.php');
 session_start();
 $user = get_user($db, $_SESSION['username']);
 if ($user['role'] == '1' or $user['role'] == '2') {
-  if (isset($_POST['title']) AND isset($_POST['content'])) {
-  	if (articles_new($db, $_POST['title'], nl2br($_POST['content']), $user['login'])) {
-  	  header("Location:../index.php");
-  	  die();
-  	}
-  	$title = $_POST['title'];
-  	$content = $_POST['content'];
+  if (isset($_POST['en'])) {
+   if (isset($_POST['title']) AND isset($_POST['content'])) {
+    if (articles_new_en($db, $_POST['title'], nl2br($_POST['content']), $user['login'])) {
+      header("Location:../index.php");
+      die();
+    }
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+  }
+  
+  }
+  elseif (isset($_POST['ua'])) {
+    if (isset($_POST['title']) AND isset($_POST['content'])) {
+    if (articles_edit_ua($db, $_POST['title'], nl2br($_POST['content']), $user['login'])) {
+      header("Location:../index.php");
+      die();
+    }
+    $title = $_POST['title'];
+    $content = $_POST['content'];
+  }
+  
   }
   else {
     $title = '';
     $content = '';
   }
+  
   include('../theme/insert.php');
 }
 else

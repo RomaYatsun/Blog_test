@@ -1,5 +1,5 @@
 <?php
-
+echo $lang;
 
 $num = 3;
 if (isset($_GET['page'])) {
@@ -16,6 +16,6 @@ if(empty($page) or $page < 0)
 $page = 1;
 if($page > $total) $page = $total;
 $start = $page * $num - $num;
-$result = $db->query("SELECT * FROM articles WHERE title != '' ORDER BY id_article DESC LIMIT $start, $num");
+$result = $db->query("SELECT * FROM articles WHERE title_$lang != '' ORDER BY id_article DESC LIMIT $start, $num");
 
 ?>

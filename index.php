@@ -5,13 +5,13 @@ while ($row = $result->fetch()):?>
 <div class='article'>
   <div class='article-title'>
   	  <a href='article.php?id=<?=$row['id_article']?>'>
-  	  	<h2><?=$row['title'];?></h2>
+  	  	<h2><?=$row["title_$lang"];?></h2>
   	  </a>
   </div>
 
   <div class='article-content'>
   	<p>
-  	  <?=articles_intro($row, $row['id_article'])?>
+  	  <?=articles_intro($row, $row['id_article'], $lang)?>
   	</p>
   	<div class='article-data'>
   	  <p>

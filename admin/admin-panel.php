@@ -1,9 +1,9 @@
 <?php   
-require_once('../config.php');
 require_once('../functions.php');
-$articles = articles_all($db);
+require_once('../config.php');
 session_start();
 
+$articles = articles_all($db, $_SESSION['lang_site']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,13 +25,44 @@ session_start();
         <a href="../index.php"><?='Home page'; ?></a>
         <?php
         foreach ($articles as $article): ?>
-        <p>
+       <!-- <p>
 <a href="./editor.php?id=<?=$article['id_article']; ?>">
-          <?=$article['title']?>
+          <?=$article["title_{$_SESSION['lang_site']}"]?>
         </a>
         >>>>>>>> Raiting like: <?=$article['raiting_up'];?>Raiting don't like: <?=$article['raiting_down'];?>
         <a href="./editor.php?id=<?=$article['id_article']?>">Change</a>
       </p>
+-->
+
+       <p>
+    Українська версія:
+    <?php if ($article['title_ua'] == '') {
+      ?>
+      <a href="./editor.php?id=<?=$article['id_article']; ?>">
+        Добавить
+      </a>
+      <?php }
+      else
+      ?>
+      <a href="./editor.php?id=<?=$article['id_article']; ?>">
+        <?=$article['title_ua']?>
+      </a>
+      ---English version:
+      <?php if ($article['title_en'] == '') {
+        ?>
+        <a href="./editor.php?id=<?=$article['id_article']; ?>">
+          Add
+        </a>
+        <?php }
+        else
+        ?>
+          <a href="./editor.php?id=<?=$article['id_article']?>">
+            <?=$article['title_en']?>
+          </a> --- Raiting like: <?=$article['raiting_up'];?>Raiting don't like: <?=$article['raiting_down'];?>
+          ---<a href="./editor.php?id=<?=$article['id_article']?>">
+          Change
+        </a>
+        </p>
       <?php endforeach ?>
       <?php 
 

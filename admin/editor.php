@@ -1,7 +1,8 @@
 <?php
 require('../functions.php');
 require('../config.php');
-session_start();
+session_start(); 
+$lang = $_SESSION['lang_site'];
 if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
   if (isset($_GET['id'])) {
   	$articles = articles_get($db, $_GET['id']);
@@ -26,8 +27,8 @@ if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
   	}
   	else {
   	  $id = $articles['id_article'];
-  	  $title = $articles['title'];
-  	  $content = $articles['content'];
+  	  $title = $articles["title_$lang"];
+  	  $content = $articles["content_$lang"];
   	}
   	include('../theme/editor.php');
   	$comments = get_comment($db, $_GET['id']);

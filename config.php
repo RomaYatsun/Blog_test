@@ -8,6 +8,7 @@ define('DB_PASSWORD', '123');
 try {
   $connect_str = DB_DRIVER . ':host=' . DB_HOST . ';dbname=' . DB_NAME;
   $db = new PDO($connect_str, DB_LOGIN, DB_PASSWORD);
+  $db->query("SET NAMES 'UTF8'");
 }
 catch(PDOException $e) {
   die("Error: " . $e->getMessage());

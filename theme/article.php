@@ -5,7 +5,6 @@
   <meta http-equiv="Content-Type" Content="text/html; Charset=utf-8">
 </head>
 <body>
-  <a href="./index.php">HOME PAGE</a>
   <h1><?=$title ;?></h1>
   <p><?=$content ;?></p>
   <em>Author - <?=$author?></em><br><br><br>

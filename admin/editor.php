@@ -3,23 +3,36 @@ require('../functions.php');
 require('../config.php');
 session_start(); 
 $lang = $_SESSION['lang_site'];
+
 if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
   if (isset($_GET['id'])) {
   	$articles = articles_get($db, $_GET['id']);
   	if (isset($_POST['upd'])) {
-
-  	  if (articles_edit($db, $_POST['id'], $_POST['title'], nl2br($_POST['content']))) {
-        change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
-        change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
+  	  if (articles_edit_en($db, $_POST['id'], $_POST['title_en'], nl2br($_POST['content_en']))) {
+        //change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
+        //change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
        header('Location: admin-panel.php');
         
   	  }
   	  else {
   	  	$id = $_POST['id'];
-  	  	$title = $_POST['title'];
-  	  	$content = $_POST['content'];
+  	  	$title = $_POST['title_en'];
+  	  	$content = $_POST['content_en'];
   	  }
   	}
+    elseif (isset($_POST['add'])) {
+     if (articles_edit_ua($db, $_POST['id'], $_POST['title_ua'], nl2br($_POST['content_ua']))) {
+        //change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
+        //change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
+       header('Location: admin-panel.php');
+        
+      }
+      else {
+        $id = $_POST['id'];
+        $title = $_POST['title_ua'];
+        $content = $_POST['content_ua'];
+      }
+    }
   	elseif (isset($_POST['del'])) {
   	  if (articles_delete($db, $_POST['id'])) {
   	  	header('Location: admin-panel.php');

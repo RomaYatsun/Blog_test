@@ -31,7 +31,10 @@
     <br><br>
     Content:<br>
     <textarea type="text" name="content_en"><?=$articles['content_en']?></textarea>
-    <br><br>
+    <br>
+<input type="submit" name = "upd" value="Change" />
+    <input type="submit" name = "del" value="Delete" />
+    <br>
     </fieldset>
   
 
@@ -40,17 +43,18 @@
     <fieldset>
       <legend><span style="font-size:12px">Українська</span></legend>
     Title:<br>
-    <input type="text" name="title_en" value="<?=$articles['title_ua']?>"/>
+    <input type="text" name="title_ua" value="<?=$articles['title_ua']?>"/>
     <br><br>
     Content:<br>
-    <textarea type="text" name="content_en"><?=$articles['content_ua']?></textarea>
-    <br><br>
+    <textarea type="text" name="content_ua"><?=$articles['content_ua']?></textarea>
+    <br>
+    <input type="submit" name = "add" value="Add translate" />
+    <br>
     </fieldset>
 
 
-        <input type="hidden" name = "id" value="<?=$id?>" />
-    <input type="submit" name = "upd" value="CHANGE" />
-    <input type="submit" name = "del" value="DELETE" />
+        <input type="hidden" name = "id" value="<?=$_GET['id']?>" />
+    
   </form>
 </body>
 </html>

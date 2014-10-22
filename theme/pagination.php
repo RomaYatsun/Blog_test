@@ -8,7 +8,7 @@ $page = $_GET['page'];
 else {
 $page = 1;
 }
-$result = $db->query("SELECT COUNT(*) FROM articles");
+$result = $db->query("SELECT COUNT(*) FROM articles WHERE title_$lang != ''");
 $posts = $result->fetchColumn();
 $total = intval(($posts - 1) / $num) + 1;
 $page = intval($page);

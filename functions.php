@@ -168,7 +168,7 @@ function upload_file($db, $file, $login) {
   	return;
   }
   elseif (!copy($file['tmp_name'], "img_big/".$file['name']))
-  	echo 'Ошибка загрузки файла';
+  	echo 'Ошибка загрузки файла<br>';
   elseif (copy($file['tmp_name'], "img_big/".$file['name'])) {
   	img_resize($file['tmp_name'], "img_small/".$file['name'], 150, 150);
   	$sql = $db->prepare("UPDATE users SET avatar=:avatar WHERE login = :login");
@@ -243,8 +243,8 @@ function articles_edit_ua($db, $id_article, $title, $content)
 
   if (!$id_article) return false;
 
-
-  $sql = "UPDATE articles SET title_ua=:title_ua, content_ua = :content_ua WHERE id_article = :id_article";
+$sql = $db->prepare("UPDATE articles SET title_ua=:title_ua, content_ua= :content_ua 
+    WHERE id_article = :id_article");
   $sql->execute(array(':title_ua'=>$title, ':content_ua'=>$content, ':id_article'=>$id_article));
   if (!$sql)
     die(mysql_error());
@@ -253,6 +253,8 @@ function articles_edit_ua($db, $id_article, $title, $content)
 }
 function articles_edit_en($db, $id_article, $title, $content)
 {
+ $title = trim($title);
+  $content = trim($content);
 
 
   if (!$id_article) return false;
@@ -296,6 +298,23 @@ function articles_edit_en($db, $id_article, $title, $content)
 *}
 *
  */
+function articles_new_en_ua($db, $title_en, $title_ua, $content_en, $content_ua, $author) {
+  $date_time = date('Y-m-d');
+  $ALLOWABLE_TAGS = '<a><b><br><em><i><img><ul><li><ol><p><small><<strong><table><tbody><td><tfoot><th><thead>
+                    <tr><tt><u>';
+  $title_en = strip_tags($title_en, $ALLOWABLE_TAGS);
+  $content_en = strip_tags($content_en, $ALLOWABLE_TAGS);
+  $title_ua = strip_tags($title_ua, $ALLOWABLE_TAGS);
+  $content_ua = strip_tags($content_ua, $ALLOWABLE_TAGS);
+  $sql =  $db->prepare("INSERT INTO articles (title_en, title_ua, content_en, content_ua, author, date_time)
+    VALUES (:title_en, :title_ua, :content_en, :content_ua, :author,:date_time)");
+  $sql->execute(array(':title_en'=>$title_en, ':title_ua'=>$title_ua, ':content_en'=>$content_en, ':content_ua'=>$content_ua, ':author'=>$author, ':date_time'=>$date_time));
+  if (!$sql)
+    die(mysql_error());
+  return true;
+}
+
+
 function articles_new_ua($db, $title, $content, $author, $date_time) {
   $date_time = date('Y-m-d');
   $ALLOWABLE_TAGS = '<a><b><br><em><i><img><ul><li><ol><p><small><<strong><table><tbody><td><tfoot><th><thead>

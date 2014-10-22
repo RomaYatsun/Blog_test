@@ -30,7 +30,8 @@ if (isset($_POST['login']) and isset($_POST['password'])) {
       else {
         echo 'YOUR LOGIN OR PASSWORD IS NOT CORRECT';
         echo "<a href='index.php'>TRY AGAIN</a>";
-      }}
+      }
+    }
 }
 else
   header("Location:index.php");

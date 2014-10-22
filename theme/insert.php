@@ -6,26 +6,24 @@
 </head>
 <body>
   <h1><?='ADMIN PANEL'?> | <?='ADD NEW ARTICLE'?></h1>
-  <a href="admin-panel.php"><?='BACK'?></a>
   <form  method="post">
     <fieldset>
         <legend><span style="font-size:12px">English</span></legend>
     Title:<br>
-    <input type="text" name="title" value="<?=$title;?>" /><br><br>
+    <input type="text" name="title_en" value="<?=$title_en;?>" /><br><br>
     Content:<br>
-    <textarea type="text" name="content" cols="100" rows="5"><?=$content;?></textarea><br>
-    <input type="submit" name='en' value="Add" />
+    <textarea type="text" name="content_en" cols="100" rows="5"><?=$content_en;?></textarea><br>
+    
   </fieldset>
-</form>
-<!--<form  method="post">
     <fieldset>
         <legend><span style="font-size:12px">Українська</span></legend>
     Заголовок:<br>
-    <input type="text" name="title" value="<?=$title;?>" /><br><br>
+    <input type="text" name="title_ua" value="<?=$title_ua;?>" /><br><br>
     Контент:<br>
-    <textarea type="text" name="content" cols="100" rows="5"><?=$content;?></textarea><br>
-    <input type="submit" name='ua' value="Додати" />
+    <textarea type="text" name="content_ua" cols="100" rows="5"><?=$content_ua;?></textarea><br>
+    <!--<input type="submit" name='ua' value="Додати" />-->
   </fieldset>
-</form>-->
+  <input type="submit" name='add' value="Add" />
+</form>
 </body>
 </html>

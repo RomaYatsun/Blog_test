@@ -9,8 +9,8 @@ if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
   	$articles = articles_get($db, $_GET['id']);
   	if (isset($_POST['upd'])) {
   	  if (articles_edit_en($db, $_POST['id'], $_POST['title_en'], nl2br($_POST['content_en']))) {
-        //change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
-        //change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
+        change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
+        change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
        header('Location: admin-panel.php');
         
   	  }
@@ -19,11 +19,12 @@ if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
   	  	$title = $_POST['title_en'];
   	  	$content = $_POST['content_en'];
   	  }
+             change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
+        change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
   	}
     elseif (isset($_POST['add'])) {
      if (articles_edit_ua($db, $_POST['id'], $_POST['title_ua'], nl2br($_POST['content_ua']))) {
-        //change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
-        //change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
+        
        header('Location: admin-panel.php');
         
       }

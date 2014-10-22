@@ -63,6 +63,7 @@ $req_page=$request_page[2];
       if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
         echo "<a href='admin/admin-panel.php'>Admin panel</a><br>";
         echo "<a href='index.php'>Home page</a><br>";
+        echo "<a href='admin/admin-language.php'>Language</a><br>";
       }
       else {
         $user = get_user($db, $_SESSION['username']);

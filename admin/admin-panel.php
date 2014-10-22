@@ -100,6 +100,6 @@ echo "</html>";
       echo 'You dont have permission<br>';
       echo '<a href="../index.php">Log in</a><br><br>';
     }
-    
+  
 
 ?>

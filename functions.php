@@ -440,4 +440,29 @@ function print_form_login() {
       echo "</form>";
       echo "<a href='register.php'>Sing in</a>";
 }
+function lang($lang, $string) {
+  $dir = "lang/". $lang. ".ini";
+  if (file_exists($dir)) {
+     $array = parse_ini_file("lang/" . $lang.".ini");
+  return $array[$string];
+  }
+  else 
+    return false;
+  
+}
+function  change_string_lan($db) {
+  $file = parse_ini_file('../lang/ua.ini');
+
+
+  foreach ($file as $key => $value) {
+
+$result = $db->query("INSERT INTO lang_int(en, ua) VALUES ('$key', '$value')");
+  if ($result) {
+     echo "GOOD";
+ }
+   else
+    echo "NO";
+  }
+
+}
 ?>

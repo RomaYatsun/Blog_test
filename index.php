@@ -1,6 +1,7 @@
 <?php
 include_once('theme/header.php');
 include_once('theme/pagination.php');
+echo lang($lang, "admin");
 while ($row = $result->fetch()):?>
 <div class='article'>
   <div class='article-title'>

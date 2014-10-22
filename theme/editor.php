@@ -32,10 +32,13 @@
     Content:<br>
     <textarea type="text" name="content_en"><?=$articles['content_en']?></textarea>
     <br>
+      Raiting like:<br>
+    <input type='text' name='raiting_up' value="<?=$articles['raiting_up'];?>"><br>
+    Raiting don't like:<br>
+    <input type='text' name='raiting_down' value="<?=$articles['raiting_down'];?>"><br>
 <input type="submit" name = "upd" value="Change" />
     <input type="submit" name = "del" value="Delete" />
     <br>
-    </fieldset>
   
 
 
@@ -51,6 +54,7 @@
     <input type="submit" name = "add" value="Add translate" />
     <br>
     </fieldset>
+   
 
 
         <input type="hidden" name = "id" value="<?=$_GET['id']?>" />

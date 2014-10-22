@@ -14,7 +14,7 @@ while ($row = $result->fetch()):?>
           <?=$row["title_$lang"]?>
         </a><br>
         <a href="editor.php?id=<?=$row['id_article']?>">Change</a><br>
-        Raiting: <?=$row['raiting'];?>
+        Raiting: <?=$row['raiting_up']+$row['raiting_down'];?>
         
       </p>
 

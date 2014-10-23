@@ -13,8 +13,8 @@ while ($row = $result->fetch()):?>
           <a href="editor.php?id=<?=$row['id_article']; ?>">
           <?=$row["title_$lang"]?>
         </a><br>
-        <a href="editor.php?id=<?=$row['id_article']?>">Change</a><br>
-        Raiting: <?=$row['raiting_up']+$row['raiting_down'];?>
+        <a href="editor.php?id=<?=$row['id_article']?>"><?=lang($db, $lang, 'Change')?></a><br>
+        <?=lang($db, $lang, 'Raiting')?>: <?=$row['raiting_up']+$row['raiting_down'];?>
         
       </p>
 

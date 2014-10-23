@@ -5,8 +5,8 @@
   <meta content="text/html; charset=utf-8" http-equiv="content-type">
 </head>
 <body>
-  <h1>ADMIN PANEL | ADD NEW ARTICLE</h1>
-  <a href="../index.php">HOME PAGE</a>
+  <h1><?=lang($db, $lang, 'Admin panel')?> | <?=lang($db, $lang, 'Add new article')?></h1>
+  <a href="../index.php"><?=lang($db, $lang, 'Home page')?></a>
  <!-- <form  method="post">
   	Title:<br>
   	<input type="text" name="title" value="<?=$title?>"/><br><br>
@@ -36,8 +36,8 @@
     <input type='text' name='raiting_up' value="<?=$articles['raiting_up'];?>"><br>
     Raiting don't like:<br>
     <input type='text' name='raiting_down' value="<?=$articles['raiting_down'];?>"><br>
-<input type="submit" name = "upd" value="Change" />
-    <input type="submit" name = "del" value="Delete" />
+<input type="submit" name = "upd" value="<?=lang($db, $lang, 'Login')?>" />
+    <input type="submit" name = "del" value="<?=lang($db, $lang, 'Delete')?>" />
     <br>
   
 
@@ -45,13 +45,13 @@
 
     <fieldset>
       <legend><span style="font-size:12px">Українська</span></legend>
-    Title:<br>
+    Назва:<br>
     <input type="text" name="title_ua" value="<?=$articles['title_ua']?>"/>
     <br><br>
-    Content:<br>
+    Контент:<br>
     <textarea type="text" name="content_ua"><?=$articles['content_ua']?></textarea>
     <br>
-    <input type="submit" name = "add" value="Add translate" />
+    <input type="submit" name = "add" value="<?=lang($db, $lang, 'Add Translate')?>" />
     <br>
     </fieldset>
    

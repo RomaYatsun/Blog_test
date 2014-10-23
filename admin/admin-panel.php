@@ -3,6 +3,21 @@ require_once('../functions.php');
 require_once('../config.php');
 session_start();
 
+if (isset($_SESSION['lang_site']))
+  {
+    $lang = $_SESSION['lang_site'];
+
+  }
+  else
+    {
+      $_SESSION['lang_site'] = 'en';
+    }
+if (isset($_GET['lang']))
+  {
+    $lang=$_GET['lang'];
+    $_SESSION['lang_site'] = $lang;
+  }
+
 $articles = articles_all($db, $_SESSION['lang_site']);
 ?>
 <!DOCTYPE html>
@@ -17,12 +32,13 @@ $articles = articles_all($db, $_SESSION['lang_site']);
     <?php
     if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
       if (check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
-        echo "<h1>Admin panel</h1>";
+        echo "<h1>". lang($db, $lang, 'Admin panel') ."</h1>";
         echo "<br>";
-        echo "<a href='../logout.php'>Logout</a><br>";
+        echo "<a href='../logout.php'>". lang($db, $lang, 'Logout') ."</a><br>";
         ?>
-        <a href="new.php"><?='Add new article'; ?></a>
-        <a href="../index.php"><?='Home page'; ?></a>
+        <a href="new.php"><?=lang($db, $lang, 'Add new article') ?></a><br>
+        <a href="admin-language.php"><?=lang($db, $lang, 'Language') ?></a><br>
+        <a href="../index.php"><?=lang($db, $lang, 'Home page')?></a>
         <?php
         foreach ($articles as $article): ?>
        <!-- <p>
@@ -51,16 +67,16 @@ $articles = articles_all($db, $_SESSION['lang_site']);
       <?php if ($article['title_en'] == '') {
         ?>
         <a href="./editor.php?id=<?=$article['id_article']; ?>">
-          Add
+         <?= lang($db, $lang, 'Add')?>
         </a>
         <?php }
         else
         ?>
           <a href="./editor.php?id=<?=$article['id_article']?>">
             <?=$article['title_en']?>
-          </a> --- Raiting like: <?=$article['raiting_up'];?>Raiting don't like: <?=$article['raiting_down'];?>
+          </a> --- <?= lang($db, $lang, 'Raiting like')?>: <?=$article['raiting_up'];?><?= lang($db, $lang, 'Raiting dont like')?>: <?=$article['raiting_down'];?>
           ---<a href="./editor.php?id=<?=$article['id_article']?>">
-          Change
+          <?= lang($db, $lang, 'Change')?>
         </a>
         </p>
       <?php endforeach ?>
@@ -72,12 +88,12 @@ if (isset($_POST['find_user'])) {
         echo "<a href='../view-profile.php?id=" . $user['login'] . "'>" . $user['login'] . "</a>";
       }
       else
-        echo "There is no such User";
+        lang($db, $lang, 'There is no such User');
     }
 
 echo "<br><form method='POST'>";
   echo "<input type='text' name='user'/>";
-  echo "<input type='submit' name='find_user' value='Find user'/>";
+  echo "<input type='submit' name='find_user' value='" . lang($db, $lang, 'Find user') ."'/>";
 echo "</form>";
 echo "</div>";
 echo "</body>";

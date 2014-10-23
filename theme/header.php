@@ -61,29 +61,29 @@ $req_page=$request_page[2];
     
    if(!empty($_SESSION['username']) AND !empty($_SESSION['password'])) {
       if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
-        echo "<a href='admin/admin-panel.php'>Admin panel</a><br>";
-        echo "<a href='index.php'>Home page</a><br>";
-        echo "<a href='admin/admin-language.php'>Language</a><br>";
+        echo "<a href='admin/admin-panel.php'>". lang($db, $lang, 'Admin panel'). "</a><br>";
+        echo "<a href='index.php'>". lang($db, $lang, 'Home page'). "</a><br>";
+        echo "<a href='admin/admin-language.php'>". lang($db, $lang, 'Language'). "</a><br>";
       }
       else {
         $user = get_user($db, $_SESSION['username']);
-        echo "<a href='user-cabinet.php'>User cabinet</a><br>";
-        echo "<a href='view-profile.php'>View profile</a><br>";
+        echo "<a href='user-cabinet.php'>". lang($db, $lang, 'User cabinet'). "</a><br>";
+        echo "<a href='view-profile.php'>". lang($db, $lang, 'View profile'). "</a><br>";
         if ($user['role']==2) {
-          echo "<a href='admin/new.php'>Add new article</a><br>";
-          echo "<a href='user-articles.php'>My articles</a><br>";
+          echo "<a href='admin/new.php'>". lang($db, $lang, 'Add new article'). "</a><br>";
+          echo "<a href='user-articles.php'>". lang($db, $lang, 'My articles'). "</a><br>";
         }
-        echo "<a href='index.php'>Home page</a><br>";
+        echo "<a href='index.php'>". lang($db, $lang, 'Home page'). "</a><br>";
       }
-      echo "<a href='logout.php'>Logout</a>";
+      echo "<a href='logout.php'>". lang($db, $lang, 'Logout'). "</a>";
     }
     else {
       echo "<form action='login.php' method='POST'>";
-      echo "<span>Login</span> <input name='login' type='text'>";
-      echo "<span>Password</span> <input name='password' type='password'>";
+      echo "<span>". lang($db, $lang, 'Login'). "</span> <input name='login' type='text'>";
+      echo "<span>". lang($db, $lang, 'Password'). "</span> <input name='password' type='password'>";
       echo "<input name='submit' type='submit' value='Log in'>";
       echo "</form>";
-      echo "<a href='register.php'>Sing in</a>";
+      echo "<a href='register.php'>". lang($db, $lang, 'Sing in'). "</a>";
     }
     ?>
   </div>

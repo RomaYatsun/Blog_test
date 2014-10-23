@@ -440,29 +440,49 @@ function print_form_login() {
       echo "</form>";
       echo "<a href='register.php'>Sing in</a>";
 }
-function lang($lang, $string) {
-  $dir = "lang/". $lang. ".ini";
-  if (file_exists($dir)) {
-     $array = parse_ini_file("lang/" . $lang.".ini");
-  return $array[$string];
+
+
+function lang($db, $lang, $string) {
+  $sql = $db->prepare("SELECT * FROM lang_int WHERE en = ?");
+  $sql->execute(array($string));
+  if (!$sql)
+    die(mysql_error());
+  elseif ($sql) {
+    $row = $sql->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$row) {
+      return $string;
+    }
+    else
+      return $row["$lang"];
   }
-  else 
-    return false;
-  
 }
-function  change_string_lan($db) {
-  $file = parse_ini_file('../lang/ua.ini');
-
-
-  foreach ($file as $key => $value) {
-
-$result = $db->query("INSERT INTO lang_int(en, ua) VALUES ('$key', '$value')");
-  if ($result) {
-     echo "GOOD";
+function get_lang_string($db) {
+ $sql = $db->query("SELECT * FROM lang_int  ORDER BY en ASC");
+ if (!$sql) {
+   die(mysql_error());
  }
-   else
-    echo "NO";
-  }
+ else {
+  return $sql;
+ }
+}
 
+
+
+
+function  change_string_lan($db, $key, $value) {
+  $sql = $db->prepare("UPDATE lang_int SET ua = ? WHERE en = ?");
+if (!$sql) {
+  die(mysql_error());
+}
+else
+  $sql->execute(array($value, $key));
+header("Location:{$_SERVER['PHP_SELF']}");
+}
+
+function add_lang_string($db, $key, $value) {
+   $sql = $db->prepare("INSERT INTO lang_int (en, ua) VALUES (:key, :value)");
+    $sql->execute(array(':key'=>$key, ':value'=>$value));
+  header("Location:{$_SERVER['PHP_SELF']}");
 }
 ?>

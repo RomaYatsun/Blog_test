@@ -47,11 +47,11 @@ if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
   	include('../theme/editor.php');
   	$comments = get_comment($db, $_GET['id']);
   	foreach ($comments as $comment) {
-  	  echo "Автор: ";
+  	  echo lang($db, $lang, 'Author') . ": ";
   	  echo $comment['username']."<br>";
   	  echo $comment['text_comment']."<br>";
   	  echo $comment['date_time']."<br>";
-  	  echo "<a href='delete-comment.php?id_comment={$comment['id_comment']}'>Видалити</a><br><hr>";
+  	  echo "<a href='delete-comment.php?id_comment={$comment['id_comment']}'>". lang($db, $lang, 'Delete'). "</a><br><hr>";
   	}
   }
 }

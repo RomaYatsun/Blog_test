@@ -5,7 +5,7 @@
   <meta content="text/html; charset=utf-8" http-equiv="content-type">
 </head>
 <body>
-  <h1><?='ADMIN PANEL'?> | <?='ADD NEW ARTICLE'?></h1>
+  <h1><?=lang($db, $lang, 'Admin panel')?> | <?=lang($db, $lang, 'Add new article')?></h1>
   <form  method="post">
     <fieldset>
         <legend><span style="font-size:12px">English</span></legend>

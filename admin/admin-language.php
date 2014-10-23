@@ -38,6 +38,10 @@ while ($row = $lang_string->fetch(PDO::FETCH_ASSOC)) {
 change_string_lan($db, $_POST["key"], $_POST['value'] );
 
 }
+
+//$bu = <<<AAA 
+//asdasd
+//AAA;
   echo "<form method = 'POST'>";
   echo "<span style='font-size:12px'>" . $row['en'] . "</span>";
   echo "<input type='hidden' name='key' value='". $row['en'] ."'>";

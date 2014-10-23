@@ -1,7 +1,8 @@
 <?php
-require_once('functions.php');
+require_once('functions.php'); 
 require_once('config.php');
 $dt = date('Y-m-d H:i:s');
+session_start();
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,11 +13,22 @@ $dt = date('Y-m-d H:i:s');
 <body>
 <?php
 if (isset($_POST['send'])) {
-  if (send_comment($db, $_POST['page_id'], $_POST['username'], $_POST['comment'], $dt)) {
-  	return true;
+  if ($_POST['title'] == '') {
+    $comment = substr($_POST['comment'], 0, strripos(substr($_POST['comment'], 0, 15), ' '));
+    if (send_comment($db, $_POST['page_id'], $_POST['username'], $comment, $_POST['comment'], $_SESSION['lang_site'], $dt)) {
+     return true;
+    }
+  	else
+      lang($db, $lang, 'An error has occured');
   }
-  else
-  	echo 'AN ERROR HAS OCCURED';
+  else {
+    if (send_comment($db, $_POST['page_id'], $_POST['username'], $_POST['title'], $_POST['comment'], $_SESSION['lang_site'], $dt)) {
+      return true;
+    }
+    else {
+      lang($db, $lang, 'An error has occured');
+    }
+  }
 }
 else
   header("Location:index.php");

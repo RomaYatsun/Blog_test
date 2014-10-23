@@ -1,6 +1,20 @@
 <?php
 include_once('config.php');
 session_start();
+if (isset($_SESSION['lang_site']))
+  {
+    $lang = $_SESSION['lang_site'];
+
+  }
+  else
+    {
+      $_SESSION['lang_site'] = 'en';
+    }
+if (isset($_GET['lang']))
+  {
+    $lang=$_GET['lang'];
+    $_SESSION['lang_site'] = $lang;
+  }
 if (isset($_POST) and $_SESSION['username'] == 'admin') {
   if ($_GET['del'] == 'admin') {
      header("Location:index.php");

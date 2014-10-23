@@ -9,7 +9,7 @@ function vote_up($db, $number, $id) {
   	return true;
   }
 }
-
+ 
 function vote_down($db, $number, $id) {
   $sql = $db->prepare("UPDATE articles SET raiting_down = raiting_down + :numbers 
     WHERE id_article = :id_article");
@@ -121,12 +121,12 @@ function get_comment($db, $page_id) {
   	echo "Error";
 }
 
-function send_comment($db, $page_id, $username, $text_comment, $date_time) {
+function send_comment($db, $page_id, $username, $title, $text_comment, $lang, $date_time) {
   $date_time = date('Y-m-d H:i:s');
-  $sql = $db->prepare("INSERT INTO comments (page_id, username, text_comment, date_time)
-  	VALUES (:page_id, :username, :text_comment, :date_time)");
-  $sql->execute(array(':page_id'=>$page_id, ':username'=>htmlspecialchars($username),':text_comment'=>htmlspecialchars($text_comment),
-  	':date_time'=>$date_time));
+  $sql = $db->prepare("INSERT INTO comments (page_id, username, title_comment, text_comment, lang, date_time)
+  	VALUES (:page_id, :username, :title, :text_comment, :lang, :date_time)");
+  $sql->execute(array(':page_id'=>$page_id, ':username'=>htmlspecialchars($username), ':title'=>$title, ':text_comment'=>htmlspecialchars($text_comment),
+  	':lang'=>$lang, ':date_time'=>$date_time));
   if (!$sql)
   	die(mysql_error());
   else

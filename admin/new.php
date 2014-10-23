@@ -2,6 +2,20 @@
 require_once('../config.php');
 require_once('../functions.php');
 session_start();
+if (isset($_SESSION['lang_site']))
+  {
+    $lang = $_SESSION['lang_site'];
+
+  }
+  else
+    {
+      $_SESSION['lang_site'] = 'en';
+    }
+if (isset($_GET['lang']))
+  {
+    $lang=$_GET['lang'];
+    $_SESSION['lang_site'] = $lang;
+  }
 $user = get_user($db, $_SESSION['username']);
 if ($user['role'] == '1' or $user['role'] == '2') {
   if (isset($_POST['add'])) {

@@ -2,20 +2,22 @@
 require_once('functions.php');
 require_once('config.php');
 session_start();
-if (isset($_SESSION['lang_site']))
-  {
-    $lang = $_SESSION['lang_site'];
-
-  }
-  else
-    {
-      $_SESSION['lang_site'] = 'en';
-    }
-if (isset($_GET['lang']))
-  {
+if (isset($_SESSION['lang_site'])) {
+  $lang = $_SESSION['lang_site'];
+}
+else {
+  $_SESSION['lang_site'] = 'en';
+}
+if (isset($_GET['lang'])) {
+  if ($_GET['lang'] =='ua' || $_GET['lang']=='en') {
     $lang=$_GET['lang'];
     $_SESSION['lang_site'] = $lang;
   }
+  else {
+    $_GET['lang']= $_SESSION['lang_site'];
+  }
+}
+
 
 $request_page=explode("/", $_SERVER['REQUEST_URI']);
 $req_page=$request_page[2];

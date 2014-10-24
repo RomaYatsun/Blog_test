@@ -113,6 +113,19 @@ function get_comment($db, $page_id) {
   $sql = $db->prepare("SELECT * FROM comments WHERE page_id = ? ORDER BY date_time DESC");
   $sql->execute(array($page_id));
   if (!$sql)
+    die(mysql_error());
+  elseif ($sql) {
+    return $sql;
+  }
+  else
+    echo "Error";
+}
+
+
+function get_comment_by_lang($db, $page_id, $lang) {
+  $sql = $db->prepare("SELECT * FROM comments WHERE page_id = ? and lang = ? ORDER BY date_time DESC");
+  $sql->execute(array($page_id, $lang));
+  if (!$sql)
   	die(mysql_error());
   elseif ($sql) {
   	return $sql;

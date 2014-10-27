@@ -1,15 +1,13 @@
 <?php
 include_once('theme/header.php');
 include_once('theme/pagination.php');
-if (isset($_POST)) {
-  var_dump($_POST);
-}
+
 while ($row = $result->fetch()):?>
 <div class='article'>
   <div class='article-title'>
-  	  <a href='article.php?id=<?=$row['id_article']?>'>
-  	  	<h2><?=$row["title_$lang"];?></h2>
-  	  </a>
+  	  <h2><a href='article.php?id=<?=$row['id_article']?>'>
+  	  	<?=$row["title_$lang"];?>
+  	  </a></h2>
   </div>
 
   <div class='article-content'>

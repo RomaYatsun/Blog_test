@@ -1,7 +1,9 @@
 <?php
 include_once('theme/header.php');
 include_once('theme/pagination.php');
-echo lang($db, $lang, 'Admin');
+if (isset($_POST)) {
+  var_dump($_POST);
+}
 while ($row = $result->fetch()):?>
 <div class='article'>
   <div class='article-title'>
@@ -17,11 +19,59 @@ while ($row = $result->fetch()):?>
   	<div class='article-data'>
   	  <p>
   	  	<a href="view-profile.php?id=<?=$row['author']?>"><?=$row['author']?></a> <?=$row["date_time"]?><br>
-  	  	Raiting article <?=$row['raiting_up']+$row['raiting_down']?><br>
+         </p>
+        <?php 
+
+        $vote = get_vote($db, $row['id_article']);
+        if (isset($_SESSION['username'])) {
+         $voteUser = get_vote_by_user($db, $row['id_article'], $_SESSION['username']);
+        }
+     else $voteUser = false;
+        if ($vote['raiting'] == 0) {
+          echo lang($db, $_SESSION['lang_site'], 'No one vote');
+          ?>
+  </div>
+      <form action='new-raiting.php'  method="POST">
+      <input type='submit' name='rating' value='1' />
+      <input type='submit' name='rating' value='2' />
+      <input type='submit' name='rating' value='3' />
+      <input type='submit' name='rating' value='4' />
+      <input type='submit' name='rating' value='5' />
+      <input type='hidden' value="<?=$row['id_article']?>" name='id' />
+    </form>
+          <?php
+        }
+        elseif ($vote['raiting']>0) {
+          echo "Rating of article: ".$vote['raiting'];
+          echo "<br>";
+          if ($voteUser) {
+            echo "<form action='new-raiting.php' method='POST'>";
+          echo "<input type='submit' name='delete' value='Delete your rating' />";
+          echo "<input type='hidden' name='id' value='". $row['id_article'] ."' />";
+          echo "</form>";
+          }
+          else {
+            ?>
+  </div>
+      <form action='new-raiting.php'  method="POST">
+      <input type='submit' name='rating' value='1' />
+      <input type='submit' name='rating' value='2' />
+      <input type='submit' name='rating' value='3' />
+      <input type='submit' name='rating' value='4' />
+      <input type='submit' name='rating' value='5' />
+      <input type='hidden' value="<?=$row['id_article']?>" name='id' />
+    </form>
+            <?php
+          }
+          
+        }
+        ?>
+  	  	<!--Raiting article 
+        <?=$row['raiting_up']+$row['raiting_down']?><br>
   	  	<a href='raiting.php?id=<?=$row['id_article']?>&vote=up'><?=lang($db, $lang, 'Like')?></a>
-  	  	<a href='raiting.php?id=<?=$row['id_article']?>&vote=down'><?=lang($db, $lang, "Dont like")?></a>
-  	  </p>
-  	</div>
+  	  	<a href='raiting.php?id=<?=$row['id_article']?>&vote=down'><?=lang($db, $lang, "Dont like")?></a>-->
+  	 
+  
   	<hr>
   </div>
 <?php endwhile ?>

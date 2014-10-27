@@ -74,7 +74,7 @@ $articles = articles_all($db, $_SESSION['lang_site']);
         ?>
           <a href="./editor.php?id=<?=$article['id_article']?>">
             <?=$article['title_en']?>
-          </a> --- <?= lang($db, $lang, 'Raiting like')?>: <?=$article['raiting_up'];?><?= lang($db, $lang, 'Raiting dont like')?>: <?=$article['raiting_down'];?>
+          </a> --- <?= lang($db, $lang, 'Raiting')?>: <?=$article['raiting'];?>
           ---<a href="./editor.php?id=<?=$article['id_article']?>">
           <?= lang($db, $lang, 'Change')?>
         </a>

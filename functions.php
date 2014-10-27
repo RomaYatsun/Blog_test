@@ -1,5 +1,5 @@
 <?php
-function vote_up($db, $number, $id) {
+/*function vote_up($db, $number, $id) {
   $sql = $db->prepare("UPDATE articles SET raiting_up = raiting_up + :numbers 
   	WHERE id_article = :id_article");
   $sql->execute(array(':numbers'=>$number, ':id_article'=>$id));
@@ -20,8 +20,98 @@ function vote_down($db, $number, $id) {
     return true;
   }
 }
+*/
+function check_rating($db, $id_article, $user, $rating) {
+  $sql = $db->prepare("SELECT * FROM rating WHERE user=:user and id_article=:id_article");
+  $sql->execute(array(':user'=>$user, ':id_article'=>$id_article));
+  $row = $sql->fetch();
+  if ($row['user'] == $user) {
+    return false;
+  }
+  else {
+    $sql = $db->prepare("INSERT INTO rating (id_article, user, rating) VALUES (?, ?, ?)");
+    $sql->execute(array($id_article, $user, $rating));
+    return true;
+  }
+}
+function get_vote($db, $id_article) {
+  $sql = $db->prepare("SELECT * FROM articles WHERE id_article = ?");
+  $sql->execute(array($id_article));
+  if (!$sql) {
+    die(mysql_error());
+  }
+
+  else
+    $result=$sql->fetch();
+  return $result;
+}
+
+function get_vote_by_user($db, $id_article, $user) {
+    $sql = $db->prepare("SELECT id FROM rating WHERE id_article = ? and user = ?");
+  $sql->execute(array($id_article, $user));
+  if (!$sql) {
+    die(mysql_error());
+    return false;
+  }
+
+  else
+    return $result = $sql->fetch();
+}
+
+function vote($db, $id_article, $num) {
+  $sql = $db->prepare("SELECT raiting FROM articles WHERE id_article = ?");
+  $sql->execute(array($id_article));
+  $row=$sql->fetch();
+  if ($row['raiting'] == 0.0) {
+    $sql = $db->prepare("UPDATE articles SET raiting = ? WHERE id_article = ?");
+    $sql->execute(array($num, $id_article));
+
+  }
+  else {
+    $sql=$db->prepare("UPDATE articles SET raiting = (raiting+:numbers)/2 WHERE id_article = :id_article");
+    $sql->execute(array(':numbers'=>$num, ':id_article'=>$id_article));
+  }
+}
+
+function change_raiting($db, $raiting, $id_article) {
+  $sql = $db->prepare("UPDATE articles SET raiting = ? WHERE id_article = ? ");
+ $sql->execute(array($raiting, $id_article));
+  if ($sql) {
+    return true;
+  }
+  else
+    return false;
+}
+function delete_vote_by_page ($db, $id_article) {
+  $sql = $db->prepare("DELETE FROM rating WHERE id_article = ?");
+  $sql->execute(array($id_article));
+  if ($sql) {
+    return true;
+  }
+  else
+    return false;
+}
+function delete_vote($db, $id_article, $user) {
+  $sql = $db->prepare("SELECT * FROM rating WHERE id_article = ? and user = ?");
+ $sql->execute(array($id_article, $user));
+$result = $sql->fetch();
+$vote = $result['rating'];
+
+  $sql = $db->prepare("UPDATE articles SET raiting = (raiting*2)-$vote WHERE id_article = ?");
+ $sql->execute(array($id_article));
+  $sql = $db->prepare("DELETE FROM rating WHERE id_article = ? and user = ?");
+  $sql->execute(array($id_article, $user));
+  if (!$sql) {
+    die(mysql_error());
+    return false;
+  }
+  else
+
+   return true;
+
+}
 /* ДОРОБИТИ */
-function check_raiting($db, $string, $id_user, $id_article){
+/*function check_raiting($db, $string, $id_user, $id_article){
   $sql = $db->prepare("SELECT * FROM raiting_art WHERE id_user=:id_user and id_article=:id_article");
   $sql->execute(array(':id_user'=>$id_user, ':id_article'=>$id_article));
   $row = $sql->fetch();
@@ -58,7 +148,7 @@ function check_raiting($db, $string, $id_user, $id_article){
 	return true;
   }
 }
-
+*/
 function check($db, $login) {
   $result = $db->query("SELECT * FROM users WHERE login = '$login'");
   if (!$result) {
@@ -376,15 +466,7 @@ function articles_new_en($db, $title, $content, $author, $date_time) {
 }*/
 
 
-function change_raiting($db, $raiting, $id_article, $number) {
-  $sql = $db->prepare("UPDATE articles SET $raiting = $number WHERE id_article=$id_article");
- $sql->execute();
-  if ($sql) {
-    return true;
-  }
-  else
-    return false;
-}
+
 
 function articles_delete($db, $id_article) {
   if (!$id_article)

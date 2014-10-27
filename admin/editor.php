@@ -3,14 +3,14 @@ require('../functions.php');
 require('../config.php');
 session_start(); 
 $lang = $_SESSION['lang_site'];
-
+ 
 if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
   if (isset($_GET['id'])) {
   	$articles = articles_get($db, $_GET['id']);
   	if (isset($_POST['upd'])) {
+      var_dump($_POST);
   	  if (articles_edit_en($db, $_POST['id'], $_POST['title_en'], nl2br($_POST['content_en']))) {
-        change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
-        change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
+       change_raiting($db, $_POST['raiting'], $_POST['id']);
        header('Location: admin-panel.php');
         
   	  }
@@ -19,8 +19,7 @@ if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
   	  	$title = $_POST['title_en'];
   	  	$content = $_POST['content_en'];
   	  }
-             change_raiting($db, 'raiting_up', $_POST['id'], $_POST['raiting_up']);
-        change_raiting($db, 'raiting_down', $_POST['id'], $_POST['raiting_down']);
+    
   	}
     elseif (isset($_POST['add'])) {
      if (articles_edit_ua($db, $_POST['id'], $_POST['title_ua'], nl2br($_POST['content_ua']))) {
@@ -36,6 +35,7 @@ if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
     }
   	elseif (isset($_POST['del'])) {
   	  if (articles_delete($db, $_POST['id'])) {
+        delete_vote_by_page($db, $_POST['id']);
   	  	header('Location: admin-panel.php');
   	  }
   	}

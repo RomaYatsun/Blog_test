@@ -32,11 +32,9 @@
     Content:<br>
     <textarea type="text" name="content_en"><?=$articles['content_en']?></textarea>
     <br>
-      Raiting like:<br>
-    <input type='text' name='raiting_up' value="<?=$articles['raiting_up'];?>"><br>
-    Raiting don't like:<br>
-    <input type='text' name='raiting_down' value="<?=$articles['raiting_down'];?>"><br>
-<input type="submit" name = "upd" value="<?=lang($db, $lang, 'Login')?>" />
+      Raiting:<br>
+    <input type='text' name='raiting' value="<?=$articles['raiting'];?>"><br>  
+<input type="submit" name = "upd" value="<?=lang($db, $lang, 'Change')?>" />
     <input type="submit" name = "del" value="<?=lang($db, $lang, 'Delete')?>" />
     <br>
   

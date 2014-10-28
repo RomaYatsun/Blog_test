@@ -190,7 +190,18 @@ function get_user($db, $login) {
   	return $row;
   }
 }
-
+function edit_comment($db, $title_comment, $text_comment, $id) {
+  $sql = $db->prepare("UPDATE comments SET title_comment = :title_comment, text_comment=:text_comment WHERE 
+  id_comment=:id ");
+  $sql->execute(array(':title_comment'=>$title_comment, ':text_comment'=>$text_comment, ':id'=>$id));
+  if (!$sql) {
+    die(mysql_error());
+    return false;
+  }
+  else {
+    return true;
+  }
+}
 function delete_comment($db, $id) {
   $sql = $db->prepare("DELETE FROM comments WHERE id_comment=?");
   $sql->execute(array($id));

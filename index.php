@@ -17,6 +17,7 @@ while ($row = $result->fetch()):?>
   	<div class='article-data'>
   	  <p>
   	  	<a href="view-profile.php?id=<?=$row['author']?>"><?=$row['author']?></a> <?=$row["date_time"]?><br>
+        </div>
          </p>
         <?php 
 
@@ -28,7 +29,7 @@ while ($row = $result->fetch()):?>
         if ($vote['raiting'] == 0) {
           echo lang($db, $_SESSION['lang_site'], 'No one vote');
           ?>
-  </div>
+  
       <form action='new-raiting.php'  method="POST">
       <input type='submit' name='rating' value='1' />
       <input type='submit' name='rating' value='2' />
@@ -50,7 +51,7 @@ while ($row = $result->fetch()):?>
           }
           else {
             ?>
-  </div>
+  
       <form action='new-raiting.php'  method="POST">
       <input type='submit' name='rating' value='1' />
       <input type='submit' name='rating' value='2' />
@@ -59,6 +60,7 @@ while ($row = $result->fetch()):?>
       <input type='submit' name='rating' value='5' />
       <input type='hidden' value="<?=$row['id_article']?>" name='id' />
     </form>
+
             <?php
           }
           
@@ -69,8 +71,7 @@ while ($row = $result->fetch()):?>
   	  	<a href='raiting.php?id=<?=$row['id_article']?>&vote=up'><?=lang($db, $lang, 'Like')?></a>
   	  	<a href='raiting.php?id=<?=$row['id_article']?>&vote=down'><?=lang($db, $lang, "Dont like")?></a>-->
   	 
-  
-  	<hr>
+   </div>
   </div>
 <?php endwhile ?>
 <?php

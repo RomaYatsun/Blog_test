@@ -35,13 +35,58 @@ parse_str($_SERVER['QUERY_STRING'], $qstr);
  while ($rows = $result->fetch()) {
 
   $user = get_user($db, $rows['username']);
-  ;
-  echo lang($db, $lang, 'Author') . ": <a href='view-profile.php?id=".$user['login']."'>".$user['login']."</a>";
+
+ 
+  if (isset($_SESSION['username'])) {
+    if ($_SESSION['username'] == $user['login']) {
+      if (isset($_POST['edit']) && $rows['id_comment'] == $_POST['id']) {
+        echo "<br>";
+       echo "<form action='comments.php' method='POST'>";
+      echo "<input type='text' name='title' value='".$rows['title_comment']."'/>";
+      echo "<input type='text' name='text' value='".$rows['text_comment']."'/>";
+      echo "<input type='hidden' name='id' value='".$rows['id_comment']."'/>";
+      echo "<input type='submit' name='safe' value='safe' />";
+      echo "</form>";
+      }
+      elseif (isset($_POST['delete'])) {
+        if(delete_comment($db, $_POST['id'])) {
+          header("Location:{$_SERVER['HTTP_REFERER']}");
+        }
+      }
+      else {
+         echo lang($db, $lang, 'Author') . ": <a href='view-profile.php?id=".$user['login']."'>".$user['login']."</a>";
+  echo  "<img height='50' width='50' src='".$user['avatar']."'><br>";
+          echo lang($db, $lang, 'Title'). ": ". $rows['title_comment']."<br>";
+  echo $rows['text_comment']."<br>";
+
+  echo "<span style='font-size:12px;  font-style: italic'>" . $rows['date_time'] . "</span>";
+   echo "<br>";
+    echo "<form method='POST'>";
+    echo "<input type='hidden' name='id' value='".$rows['id_comment']."'/>";
+      echo "<input type='submit' name ='edit' value='edit'/>";
+      echo "<input type='submit' name='delete' value='delete'/>";
+      echo "</form>";
+      }
+      
+    }
+    else {
+       echo lang($db, $lang, 'Author') . ": <a href='view-profile.php?id=".$user['login']."'>".$user['login']."</a>";
   echo  "<img height='50' width='50' src='".$user['avatar']."'><br>";
   echo lang($db, $lang, 'Title'). ": ". $rows['title_comment']."<br>";
   echo $rows['text_comment']."<br>";
+
   echo "<span style='font-size:12px;  font-style: italic'>" . $rows['date_time'] . "</span>";
    echo "<br>";
+    }
+  }
+
+
+
+
+
+
+
+
  }
 
  echo "<ul>";

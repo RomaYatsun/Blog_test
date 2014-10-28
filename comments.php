@@ -30,6 +30,12 @@ if (isset($_POST['send'])) {
     }
   }
 }
+elseif (isset($_POST['safe'])) {
+
+ if(edit_comment($db, $_POST['title'], $_POST['text'], $_POST['id'])) {
+header("Location:{$_SERVER['HTTP_REFERER']}");
+ }
+}
 else
   header("Location:index.php");
 ?>

@@ -2,6 +2,7 @@
 require_once('functions.php');
 require_once('config.php');
 session_start();
+
 if (isset($_SESSION['lang_site'])) {
   $lang = $_SESSION['lang_site'];
 }
@@ -57,25 +58,26 @@ $req_page=$request_page[2];
     <div class = 'wrapper'>
       <a href="<?=$req_page_ua;?>"><img src="img/Ukraine.gif" alt="ua"/></a>
 <a href="<?=$req_page_en;?>"><img src="img/usa.gif" alt="en"/></a>
+<div class='article'>
     <div class='login'>
     <?php
     
     
    if(!empty($_SESSION['username']) AND !empty($_SESSION['password'])) {
       if(check_admin($db, $_SESSION['username'], $_SESSION['password'])) {
-        echo "<a href='admin/admin-panel.php'>". lang($db, $lang, 'Admin panel'). "</a><br>";
-        echo "<a href='index.php'>". lang($db, $lang, 'Home page'). "</a><br>";
-        echo "<a href='admin/admin-language.php'>". lang($db, $lang, 'Language'). "</a><br>";
+        echo "<a href='admin/admin-panel.php'>". lang($db, $lang, 'Admin panel'). "</a>";
+        echo "<a href='index.php'>". lang($db, $lang, 'Home page'). "</a>";
+        echo "<a href='admin/admin-language.php'>". lang($db, $lang, 'Language'). "</a>";
       }
       else {
         $user = get_user($db, $_SESSION['username']);
-        echo "<a href='user-cabinet.php'>". lang($db, $lang, 'User cabinet'). "</a><br>";
-        echo "<a href='view-profile.php'>". lang($db, $lang, 'View profile'). "</a><br>";
+        echo "<a href='user-cabinet.php'>". lang($db, $lang, 'User cabinet'). "</a>";
+        echo "<a href='view-profile.php'>". lang($db, $lang, 'View profile'). "</a>";
         if ($user['role']==2) {
-          echo "<a href='admin/new.php'>". lang($db, $lang, 'Add new article'). "</a><br>";
-          echo "<a href='user-articles.php'>". lang($db, $lang, 'My articles'). "</a><br>";
+          echo "<a href='admin/new.php'>". lang($db, $lang, 'Add new article'). "</a>";
+          echo "<a href='user-articles.php'>". lang($db, $lang, 'My articles'). "</a>";
         }
-        echo "<a href='index.php'>". lang($db, $lang, 'Home page'). "</a><br>";
+        echo "<a href='index.php'>". lang($db, $lang, 'Home page'). "</a>";
       }
       echo "<a href='logout.php'>". lang($db, $lang, 'Logout'). "</a>";
     }
@@ -88,5 +90,6 @@ $req_page=$request_page[2];
       echo "<a href='register.php'>". lang($db, $lang, 'Sing in'). "</a>";
     }
     ?>
+    <h1 style='text-align:center'>TEST-BLOG</h1>
   </div>
    

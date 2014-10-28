@@ -7,6 +7,7 @@ if(!empty($_SESSION['username']) AND !empty($_SESSION['password']))
 
 	unset($_SESSION['username']);
 	unset($_SESSION['password']);
+	unset($_SESSION['last_login']);
 	header("Location:index.php");
 
 } 

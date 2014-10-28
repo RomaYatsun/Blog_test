@@ -2,8 +2,44 @@ body {
 	margin: 0;
 	padding: 0;
 	background-image: url('../img/bg.png');
+	font: 16px/22px 'PT Sans Narrow',sans-serif;
+	color: #676761;
+}
+a {
+	text-decoration: none;
+	color: #DE543E;
+}
+
+a:hover {
+	text-decoration:underline;
+}
+img {
+	border: none;
 }
 .wrapper {
 	width: 1024px;
 	margin: 0 auto;
+	background-color: white;
+}
+
+.login a {
+	margin-right: 10px;
+}
+.article {
+	border-right: 2px solid#F0F0E5; 
+border-bottom: 2px solid #F0F0E5;
+border-top: 2px solid #F0F0E5;
+	margin: 0 10px 10px 0; 
+	padding: 10px;
+	width: 850px
+}
+
+input[type=submit] {
+	background-color:#DE543E; 
+	color: white;
+	outline: none;
+	border: none;
+}
+input[type=submit]:hover {
+	cursor: pointer;
 }

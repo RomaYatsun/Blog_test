@@ -1,17 +1,7 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>BLOG_TEST</title>
-    <meta http-equiv="Content-Type" Content="text/html; Charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-  </head>
-  <body>
-     <div class = 'wrapper'>
-      <a href="index.php">Home page</a><br>
 <?php
 require_once('functions.php');
 require_once('config.php');
-
+require_once('theme/header.php');
 if (isset($_POST['submit'])) {
   $err = array();
   filter_var('example@mail.ru', FILTER_VALIDATE_EMAIL);
@@ -72,13 +62,12 @@ if (isset($_POST['submit'])) {
   	}
   }
 }
-?>
-    <div class='login'>
-      <form method="POST">
-        <span>Login</span><input name="login" type="text" required>
-        <span>Password</span> <input name="password" type="password" required>
-        <span>Re-password</span> <input name="re-password" type="password" required>
-        <span>E-mail</span> <input name="email" type="email" required>
+?><span id='1'></span>
+      <form method="POST" >
+        <label for='login'>Login</label><input type="text" name="login" id="login"><span></span><br>
+        <label>Password</label><input name="password" type="password" required><br>
+        <label>Re-password</label><input name="re-password" type="password" required><br>
+        <label>E-mail</label><input name="email" type="email" required><br>
         <input name="submit" type="submit" value='Sing in'>
       </form>
-    </div>
+  

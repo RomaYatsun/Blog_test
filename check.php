@@ -16,5 +16,9 @@ if (isset($_POST['login'])) {
 	else {
 		echo "no";
 	}
+
 }
+else
+		var_dump($_POST);
 ?>
+http://www.youtube.com/watch?v=sRoXIZezt68

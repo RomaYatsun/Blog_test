@@ -9,16 +9,17 @@ function check(inputId) {
     $.ajax ({
       url: 'check.php',
       type: 'POST',
-      data: {login: data},
+      data: {name: data},
       success: function(res) {
-        if (res == "no") {
+        alert(res);
+        /*if (res == "no") {
           $(inputId).removeClass().addClass('ok');
           $(inputId).next().text("Все ок!");
         }
         else if(res == "yes") {
           $(inputId).removeClass().addClass("error");
           $(inputId).next().text("Не подходит");
-        }
+        }*/
       },
       error: function() {
         $(inputId).next().text("Ошибка");

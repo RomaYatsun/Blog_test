@@ -43,8 +43,8 @@ form label {
 	display: inline-block;
 }
 .error {
-	background-color: red;
+color: red
 }
 .ok {
-	background-color: green;
+	color:green;
 }

@@ -62,12 +62,12 @@ if (isset($_POST['submit'])) {
   	}
   }
 }
-?><span id='1'></span>
-      <form method="POST" >
-        <label for='login'>Login</label><input type="text" name="login" id="login"><span></span><br>
-        <label>Password</label><input name="password" type="password" required><br>
-        <label>Re-password</label><input name="re-password" type="password" required><br>
-        <label>E-mail</label><input name="email" type="email" required><br>
+?>
+      <form method="POST" id='form' >
+        <label for='login'>Login</label><input type="text" name="login" id="login" required><span></span><br>
+        <label>Password</label><input name="password" type="password" id="password" required><span></span><br>
+        <label>Re-password</label><input name="re-password" type="password" id="re-password" required><span></span><br>
+        <label>E-mail</label><input name="email" type="email" id="email" required><span></span><br>
         <input name="submit" type="submit" value='Sing in'>
       </form>
   

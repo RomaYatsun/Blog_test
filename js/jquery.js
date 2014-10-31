@@ -16,14 +16,17 @@ function check() {
         if (res == "no") {
           $("#login").removeClass().addClass('ok');
           $("#login").next().text("Все ок!");
+          var error = 0;
         }
         else if(res == "yes") {
           $("#login").removeClass().addClass("error");
           $("#login").next().text("Не подходит");
+          var error = 1;
         }
       },
       error: function() {
         $("#login").next().text("Ошибка");
+        var error = 1;
       }
     });
 
@@ -32,6 +35,7 @@ function check() {
     else {
       $("#login").removeClass().addClass('error');
       $("#login").next().text('Заполните поле!');
+      var error = 1;
     }
   });
 }
@@ -39,9 +43,11 @@ function checkRepassword() {
   $("#re-password").blur(function(){
   if ($("#password").val() != $("#re-password").val()) {
     $("#re-password").next().text("No qual");
+    var error = 1;
   }
   else
     $("#re-password").next().text("Ok");
+  var error = 0;
   });
 }
 function checkEmail () {
@@ -60,14 +66,17 @@ function checkEmail () {
         if (res == "no") {
           $("#email").removeClass().addClass('ok');
           $("#email").next().text("Все ок!");
+          var error = 0;
         }
         else if(res == "yes") {
           $("#email").removeClass().addClass("error");
           $("#email").next().text("Не подходит");
+          var error = 1;
         }
       },
       error: function() {
         $("#email").next().text("Ошибка");
+        var error = 1;
       }
     });
 
@@ -76,18 +85,20 @@ function checkEmail () {
     else {
       $("#email").removeClass().addClass('error');
       $("#email").next().text('Email is not correct!');
+      var error = 1;
     }
 });
 }
 $(document).ready(function() {
+
 check();
 checkRepassword();
 checkEmail();
-$("form").submit(function(){
-if (check() && checkRepassword() && checkEmail()) {
-  alert("OK");
+$("#submit").bind('click', function(){
+if (error = 0) {
+  alert('true');
 }
-else
-alert("NOt ok");
+else if (error = 1) {alert('false'); return false;};
+return false;
 });
 });

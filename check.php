@@ -12,9 +12,11 @@ if ($_POST['check'] == 'login') {
 	}
 	elseif (!$result) {
 		echo "no";
+		
 	}
 	else {
-		echo "no";
+	echo "no";
+		
 	}
 }
 if ($_POST['check'] == 'email') {

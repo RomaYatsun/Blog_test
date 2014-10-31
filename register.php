@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
 
 
 ?>
-      <form method="POST" id='form' >
+      <form method="POST" id='forms' >
         <label for='login'>Login</label><input type="text" name="login" id="login" required><span></span><br>
         <label>Password</label><input name="password" type="password" id="password" required><span></span><br>
         <label>Re-password</label><input name="re-password" type="password" id="re-password" required><span></span><br>

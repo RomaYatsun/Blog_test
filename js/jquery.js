@@ -12,21 +12,21 @@ function check() {
       type: 'POST',
       data: {name: data, check:name},
 
-      success: function(res) {
-        if (res == "no") {
+      success: function(login) {
+        if (login == "no") {
+          login = 'true';
           $("#login").removeClass().addClass('ok');
-          $("#login").next().text("Все ок!");
-          var error = 0;
+          $("#login").next().text("Все ок! " + login);
+          login = 'true';
         }
-        else if(res == "yes") {
+        else if(login == "yes") {
           $("#login").removeClass().addClass("error");
           $("#login").next().text("Не подходит");
-          var error = 1;
         }
       },
       error: function() {
         $("#login").next().text("Ошибка");
-        var error = 1;
+        
       }
     });
 
@@ -35,7 +35,7 @@ function check() {
     else {
       $("#login").removeClass().addClass('error');
       $("#login").next().text('Заполните поле!');
-      var error = 1;
+
     }
   });
 }
@@ -43,11 +43,13 @@ function checkRepassword() {
   $("#re-password").blur(function(){
   if ($("#password").val() != $("#re-password").val()) {
     $("#re-password").next().text("No qual");
-    var error = 1;
+
   }
-  else
-    $("#re-password").next().text("Ok");
-  var error = 0;
+  else {
+     var password = 'true';
+    $("#re-password").next().text("Ok" + password);
+ 
+}
   });
 }
 function checkEmail () {
@@ -62,21 +64,23 @@ function checkEmail () {
       type: 'POST',
       data: {name: data, check:name},
 
-      success: function(res) {
-        if (res == "no") {
+      success: function(email) {
+       
+        if (email == "no") {
+           email = 'true';
           $("#email").removeClass().addClass('ok');
-          $("#email").next().text("Все ок!");
-          var error = 0;
+          $("#email").next().text("Все ок! " + email);
+
         }
-        else if(res == "yes") {
+        else if(email == "yes") {
           $("#email").removeClass().addClass("error");
           $("#email").next().text("Не подходит");
-          var error = 1;
+
         }
       },
       error: function() {
         $("#email").next().text("Ошибка");
-        var error = 1;
+
       }
     });
 
@@ -85,20 +89,19 @@ function checkEmail () {
     else {
       $("#email").removeClass().addClass('error');
       $("#email").next().text('Email is not correct!');
-      var error = 1;
+
     }
 });
 }
 $(document).ready(function() {
-
 check();
 checkRepassword();
 checkEmail();
-$("#submit").bind('click', function(){
-if (error = 0) {
-  alert('true');
-}
-else if (error = 1) {alert('false'); return false;};
-return false;
+$("#submit").bind('mouseenter', function(){
+
+   $("#email").next().text(password);
+
+
+
 });
 });

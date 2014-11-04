@@ -5,6 +5,7 @@ function check() {
   $("#login").blur(function(){
     var data = $("#login").val();
     var name = $("#login").attr('name');
+
     if (data != '') {
     $.ajax ({
 
@@ -14,40 +15,46 @@ function check() {
 
       success: function(login) {
         if (login == "no") {
-          login = 'true';
+       
           $("#login").removeClass().addClass('ok');
-          $("#login").next().text("Все ок! " + login);
-          login = 'true';
+          $("#login").next().text("1");
+
         }
         else if(login == "yes") {
+           
           $("#login").removeClass().addClass("error");
           $("#login").next().text("Не подходит");
+        
+       
         }
       },
       error: function() {
         $("#login").next().text("Ошибка");
         
       }
-    });
 
+    });
+      
   }
 
     else {
       $("#login").removeClass().addClass('error');
       $("#login").next().text('Заполните поле!');
 
-    }
+    } 
   });
+
 }
 function checkRepassword() {
   $("#re-password").blur(function(){
   if ($("#password").val() != $("#re-password").val()) {
     $("#re-password").next().text("No qual");
-
+return false;
   }
   else {
-     var password = 'true';
-    $("#re-password").next().text("Ok" + password);
+
+    $("#re-password").next().text("Ok");
+    return true;
  
 }
   });
@@ -67,9 +74,9 @@ function checkEmail () {
       success: function(email) {
        
         if (email == "no") {
-           email = 'true';
+           
           $("#email").removeClass().addClass('ok');
-          $("#email").next().text("Все ок! " + email);
+          $("#email").next().text("Все ок! ");
 
         }
         else if(email == "yes") {
@@ -98,8 +105,9 @@ check();
 checkRepassword();
 checkEmail();
 $("#submit").bind('mouseenter', function(){
-
-   $("#email").next().text(password);
+if($("#login").next().text() == '1') {
+  alert('ff');
+}
 
 
 

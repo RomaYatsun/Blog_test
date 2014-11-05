@@ -1,115 +1,107 @@
-function check() {
-  $("#login").focus(function(){
-    $("#login").removeClass().next().empty();
-  });
-  $("#login").blur(function(){
-    var data = $("#login").val();
-    var name = $("#login").attr('name');
+$(document).ready(function() {
 
-    if (data != '') {
-    $.ajax ({
+  $("#submit").click(function(event){
+    var login = $("#login").val();
+    var password = $("#password").val();
+    var repassword = $("#re-password").val();
+    var email = $("#email").val();
+    var nameLogin = $("#login").attr('name');
+    var nameEmail = $("#email").attr('name');
+    $("#form input").each(function(){
+      $(this).focus(function(){$(this).next().text('');
+    });
+
+      if ($(this).val().length == "") {
+        $(this).next().addClass('error');
+        $(this).next().text("NOT empty");
+        event.preventDefault();
+      }
+    });
+    if (!isValidEmailAddress(email)) {
+      event.preventDefault();
+    }
+else if (!validPassword(password, repassword)) {
+   $("#re-password").next().addClass('error');
+        $("#re-password").next().text("Re-password is not equal");
+  event.preventDefault();
+}
+
+   else if (login != '') {
+      var msg   = $('#login, #email').serialize();
+          $.ajax ({
 
       url: 'check.php',
       type: 'POST',
-      data: {name: data, check:name},
+      async: false,
+      data: msg,
 
       success: function(login) {
-        if (login == "no") {
-       
+        if (login == "") {
+
           $("#login").removeClass().addClass('ok');
-          $("#login").next().text("1");
 
         }
-        else if(login == "yes") {
+        else {
            
           $("#login").removeClass().addClass("error");
-          $("#login").next().text("Не подходит");
-        
+          $("#form").next().text("Maybe login or email is used");
+          setTimeout(function() {  $("#form").next().hide('slow'); }, 3000);
+          $("#form").next().text("Maybe login or email is used").show('slow');
+        event.preventDefault();
        
         }
       },
       error: function() {
         $("#login").next().text("Ошибка");
-        
+        event.preventDefault();
       }
 
     });
-      
-  }
-
-    else {
-      $("#login").removeClass().addClass('error');
-      $("#login").next().text('Заполните поле!');
-
-    } 
-  });
-
-}
-function checkRepassword() {
-  $("#re-password").blur(function(){
-  if ($("#password").val() != $("#re-password").val()) {
-    $("#re-password").next().text("No qual");
-return false;
-  }
-  else {
-
-    $("#re-password").next().text("Ok");
-    return true;
+          
+    }
+    
  
-}
   });
-}
-function checkEmail () {
-  $("#email").blur(function(){
-       var data = $("#email").val();
-    var name = $("#email").attr('name');
-    var patt = /^.+@.+[.].{2,}$/i;
-    if (data != '' && patt.test(data)) {
-    $.ajax ({
 
-      url: 'check.php',
-      type: 'POST',
-      data: {name: data, check:name},
+ $("#email").keyup(function(){
+    
+    var email = $("#email").val();
+ 
+ 
+    if(isValidEmailAddress(email))
+    {
+      $(this).next().addClass('ok');
+    $("#email").next().text('OK');
+ 
+    } else {
+    $("#email").next().text('Email is not correct')
+    }
 
-      success: function(email) {
-       
-        if (email == "no") {
-           
-          $("#email").removeClass().addClass('ok');
-          $("#email").next().text("Все ок! ");
-
-        }
-        else if(email == "yes") {
-          $("#email").removeClass().addClass("error");
-          $("#email").next().text("Не подходит");
-
-        }
-      },
-      error: function() {
-        $("#email").next().text("Ошибка");
-
-      }
     });
-
-  }
-
-    else {
-      $("#email").removeClass().addClass('error');
-      $("#email").next().text('Email is not correct!');
-
+$("#re-password").keyup(function(){
+  var password = $("#password").val();
+    var repassword = $("#re-password").val();
+     if(validPassword(password, repassword))
+    {
+      $(this).next().addClass('ok');
+    $("#re-password").next().text('OK');
+ 
+    } else {
+    $("#re-password").next().text('Re-password in equal')
     }
 });
-}
-$(document).ready(function() {
-check();
-checkRepassword();
-checkEmail();
-$("#submit").bind('mouseenter', function(){
-if($("#login").next().text() == '1') {
-  alert('ff');
-}
-
-
-
-});
-});
+   });
+    function isValidEmailAddress(emailAddress) {
+    var pattern  = /^.+@.+[.].{2,}$/i;
+    if (pattern.test(emailAddress))
+      return true;
+    else
+      return false;
+    }
+    function validPassword(password, repassword) {
+      if (password == repassword) {
+        return true;
+      }
+      else
+        return false;
+    }

@@ -3,37 +3,75 @@ require_once('config.php');
 //$sql = $db->prepare("INSERT INTO users (email, login, password, avatar, date_time, role)
   //	  VALUES (:email, :login, :password, :avatar, :date_time, :role)");
 //$result = $sql->execute(array(':email'=>$email, ':login'=>$login, ':password'=>$password, ':avatar'=>$avatar, ':date_time'=>$date, ':role'=>'3'));
-if ($_POST['check'] == 'login') {
-	$login = "'".trim($_POST['name'])."'";
+function getUserByLogin($db, $login) {
+	$login = "'".trim($_POST['login'])."'";
 	$query = "SELECT count(*) FROM users WHERE login = $login";
 	$result = $db->query($query);
 	if ($result->fetchColumn()>0) {
-		echo "yes";
+		return false;
 	}
 	elseif (!$result) {
-		echo "no";
+		return false;
 		
 	}
 	else {
-	echo "no";
+	return true;
 		
 	}
 }
-if ($_POST['check'] == 'email') {
-	$email = "'".trim($_POST['name'])."'";
+function getUserByEmail($db, $email) {
+	$email = "'".trim($_POST['email'])."'";
 	$query = "SELECT count(*) FROM users WHERE email = $email";
 	$result = $db->query($query);
 	if ($result->fetchColumn()>0) {
-		echo "yes";
+		return false;
 	}
 	elseif (!$result) {
-		echo "no";
+		return false;
 	}
 	else {
-		echo "no";
+		return true;
 	}
 
 }
+
+
+if(getUserByLogin($db, $_POST['login']) && getUserByEmail($db, $_POST['email'])) {
+	return true;
+}
+else
+echo "ERROR";
+/*if ($_POST['login']) {
+	$login = "'".trim($_POST['login'])."'";
+	$query = "SELECT count(*) FROM users WHERE login = $login";
+	$result = $db->query($query);
+	if ($result->fetchColumn()>0) {
+		echo "Login is use";
+	}
+	elseif (!$result) {
+		return true;
+		
+	}
+	else {
+	exit();
+		
+	}
+}
+if ($_POST['email']) {
+	$email = "'".trim($_POST['email'])."'";
+	$query = "SELECT count(*) FROM users WHERE email = $email";
+	$result = $db->query($query);
+	if ($result->fetchColumn()>0) {
+		echo "Email is use";
+	}
+	elseif (!$result) {
+		return true;
+	}
+	else {
+		die(mysql_error());
+	}
+
+}*/
 
 
 

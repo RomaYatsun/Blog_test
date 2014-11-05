@@ -75,7 +75,8 @@ echo "<a href='index.php'>". lang($db, $lang, 'Home page'). "</a>";
 echo "<a href='logout.php'>". lang($db, $lang, 'Logout'). "</a>";
 }
 else {
-echo "<form action='login.php' method='POST'>";
+    echo "<a href='index.php'>". lang($db, $lang, 'Home page'). "</a>";
+echo "<form action='login.php' method='POST' class='login'>";
 echo "<span>". lang($db, $lang, 'Login'). "</span> <input name='login' type='text'>";
 echo "<span>". lang($db, $lang, 'Password'). "</span> <input name='password' type='password'>";
 echo "<input name='submit' type='submit' value='Log in'>";

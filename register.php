@@ -33,10 +33,11 @@ if (isset($_POST['submit'])) {
 
 ?>
       <form method="POST" id='form' >
-        <label for='login'>Login</label><input type="text" name="login" id="login" required><span></span><br>
-        <label>Password</label><input name="password" type="password" id="password" required><span></span><br>
-        <label>Re-password</label><input name="re-password" type="password" id="re-password" required><span></span><br>
-        <label>E-mail</label><input name="email" type="email" id="email" required><span></span><br>
+        <label for='login'>Login</label><input type="text" name="login" id="login" ><span></span><br>
+        <label>Password</label><input name="password" type="password" id="password" ><span></span><br>
+        <label>Re-password</label><input name="re-password" type="password" id="re-password" ><span></span><br>
+        <label>E-mail</label><input name="email" type="text" id="email" ><span></span><br>
         <input name="submit" type="submit" value='Sing in' id='submit'>
       </form>
+      <span></span>
   <?php }?>

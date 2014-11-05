@@ -20,6 +20,7 @@ img {
 	width: 1024px;
 	margin: 0 auto;
 	background-color: white;
+	padding: 10px;
 }
 
 .login a {

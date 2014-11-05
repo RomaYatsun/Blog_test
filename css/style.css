@@ -49,3 +49,11 @@ color: red
 .ok {
 	color:green;
 }
+.wrapper ul {
+	width: 850px;
+	text-align: center;
+}
+.wrapper ul li {
+	display: inline-block;
+	margin: 0 5px;
+}

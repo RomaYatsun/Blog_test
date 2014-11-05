@@ -76,12 +76,13 @@ echo "<a href='logout.php'>". lang($db, $lang, 'Logout'). "</a>";
 }
 else {
     echo "<a href='index.php'>". lang($db, $lang, 'Home page'). "</a>";
+    echo "<a href='register.php'>". lang($db, $lang, 'Sing in'). "</a>";
 echo "<form action='login.php' method='POST' class='login'>";
 echo "<label>". lang($db, $lang, 'Login'). "</label><input name='login' type='text'><br />";
 echo "<label>". lang($db, $lang, 'Password'). "</label><input name='password' type='password'><br />";
 echo "<input name='submit' type='submit' value='Log in'>";
 echo "</form>";
-echo "<a href='register.php'>". lang($db, $lang, 'Sing in'). "</a>";
+
 }
 ?>
 <h1 style='text-align:center'>TEST-BLOG</h1>
